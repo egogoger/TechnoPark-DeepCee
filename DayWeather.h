@@ -24,4 +24,4 @@ char* print_weather_forecast(DayWeather today);
 
 #endif //IS1_DAYWEATHER_H
 
-#define MAX_LEN 80
+#define MAX_LEN 100

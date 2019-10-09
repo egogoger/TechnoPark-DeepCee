@@ -10,13 +10,8 @@
 void test_DynArray() {
     // Create an empty one and delete right after
     {
-        DynArray *temp_da = new_DynArray();
-        delete_DynArray(temp_da);
-    }
-
-    // Create an empty one and delete right after
-    {
-        DynArray *temp_da = new_DynArray();
+        DynArray *temp_da = NULL;
+        new_DynArray(&temp_da);
         delete_DynArray(temp_da);
     }
 }
@@ -24,12 +19,14 @@ void test_DynArray() {
 void test_Add() {
     char *str = NULL;
 
-    DynArray *temp_da = new_DynArray();
+    DynArray *temp_da = NULL;
+    new_DynArray(&temp_da);
 
-    DayWeather new_day;
-    new_day.temperature = 20;
-    new_day.precipitation = THUNDERSTORM;
-    new_day.wind_speed = 12.5;
+    DayWeather* new_day;
+    new_day = (DayWeather *)malloc(sizeof(DayWeather));
+    new_day->temperature = 20;
+    new_day->precipitation = THUNDERSTORM;
+    new_day->wind_speed = 12.5;
 
     Add(temp_da, new_day);
 
@@ -38,5 +35,6 @@ void test_Add() {
     // assert(str == "\nTemperature: 20.00\nPrecipitations: Thunderstorm!\nThe wind speed: 12.50 m/s");
 
     free(str);
+    free(new_day);
     delete_DynArray(temp_da);
 }

@@ -4,18 +4,6 @@
 #include <string.h>
 
 #include "DayWeather.h"
-/*
-DayWeather* new_DayWeather() {
-    DayWeather* new_day;
-    new_day = (DayWeather *)malloc(sizeof(DayWeather));
-
-    new_day->temperature = 0;
-    new_day->precipitation = TOTAL_AMOUNT;
-    new_day->wind_speed = 0;
-
-    return new_day;
-}
-*/
 
 char* print_weather_forecast(DayWeather today) {
     char *temp;

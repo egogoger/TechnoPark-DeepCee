@@ -6,24 +6,21 @@
 #include "DynArray.h"
 #include "DayWeather.h"
 
-DynArray *new_DynArray()
+void new_DynArray(DynArray** dyn_array)
 {
-    DynArray *temp_da = NULL;
-    temp_da = (DynArray*)malloc(sizeof(DynArray));
-    if (!temp_da)
-        malloc_fail(temp_da);
+    *dyn_array = malloc(sizeof(DynArray));
+    if ( !(*dyn_array) )
+        malloc_fail( (*dyn_array) );
 
-    temp_da->buffer_size = DAYS_IN_WEEK * 2;
+    (*dyn_array)->buffer_size = DAYS_IN_WEEK;
 
     DayWeather *buffer;
-    buffer = (DayWeather*)malloc(temp_da->buffer_size * sizeof(DayWeather));
-    if (!buffer)
-        malloc_fail(temp_da);
-    temp_da->buffer = buffer;
+    buffer = (DayWeather*)malloc((*dyn_array)->buffer_size * sizeof(DayWeather));
+    if ( !buffer )
+        malloc_fail((*dyn_array));
+    (*dyn_array)->buffer = buffer;
 
-    temp_da->real_size = 0;
-
-    return temp_da;
+    (*dyn_array)->real_size = 0;
 }
 
 void delete_DynArray(DynArray *dyn_array) {
@@ -50,13 +47,13 @@ void Expand(DynArray *dyn_array) {
     dyn_array->buffer_size = bigger_buffer_size;
 }
 
-void Add(DynArray *dyn_array, DayWeather day) {
+void Add(DynArray *dyn_array, DayWeather* day) {
     if (dyn_array->real_size == dyn_array->buffer_size)
         Expand(dyn_array);
     assert(dyn_array->real_size < dyn_array->buffer_size && dyn_array->buffer != 0);
-    dyn_array->buffer[dyn_array->real_size].temperature = day.temperature;
-    dyn_array->buffer[dyn_array->real_size].precipitation = day.precipitation;
-    dyn_array->buffer[dyn_array->real_size++].wind_speed = day.wind_speed;
+    dyn_array->buffer[dyn_array->real_size].temperature = day->temperature;
+    dyn_array->buffer[dyn_array->real_size].precipitation = day->precipitation;
+    dyn_array->buffer[dyn_array->real_size++].wind_speed = day->wind_speed;
 }
 
 // works provided user checked emptiness

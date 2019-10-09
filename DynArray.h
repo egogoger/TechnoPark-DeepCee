@@ -9,10 +9,10 @@ typedef struct DynArray {
     size_t real_size;      // Он же хэд
 } DynArray;
 
-DynArray*   new_DynArray    ();
+void        new_DynArray    (DynArray **dyn_array);
 size_t      IsEmpty         (DynArray *dyn_array);
 void        Expand          (DynArray *dyn_array);
-void        Add             (DynArray *dyn_array, DayWeather day);
+void        Add             (DynArray *dyn_array, DayWeather* day);
 DayWeather  Pop             (DynArray *dyn_array);
 void        delete_DynArray (DynArray *dyn_array);
 void        malloc_fail     (DynArray *dyn_array);
