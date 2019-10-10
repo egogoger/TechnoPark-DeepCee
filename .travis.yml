@@ -11,6 +11,11 @@ compiler:
     - gcc
     - clang
 
+install:
+    - sudo apt-get update
+    - sudo apt-get install libstdc++6
+    - sudo apt-get install cmake
+
 env:
     # список переменных окружения, влияющих на матрицу сборки:
     - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
@@ -30,11 +35,8 @@ matrix:
         - os:  osx
           env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
 
-install:
-    # скрипт настройки среды и установки зависимостей:
-    - source ci/travis/install-$TRAVIS_OS_NAME.sh
-
 script:
+    - cd /home/travis/build/EgorBedov/TechnoPark-DeepCee
     - cmake .
     - cmake --build .
     - ctest .
