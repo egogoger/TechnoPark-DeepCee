@@ -14,11 +14,9 @@ void test_DynArray() {
 
         delete_DynArray(temp_da);
     }
-/*
     // Expand()
     {
-        DynArray *temp_da = NULL;
-        new_DynArray(&temp_da);
+        DynArray *temp_da = new_DynArray();
 
         assert( temp_da->buffer_size == DAYS_IN_WEEK );
         Expand(temp_da);
@@ -29,8 +27,8 @@ void test_DynArray() {
 
     // IsEmpty()
     {
-        DynArray *temp_da = NULL;
-        new_DynArray(&temp_da);
+        DynArray *temp_da = new_DynArray();
+
         assert( IsEmpty(temp_da) == 0 );
 
         delete_DynArray(temp_da);
@@ -38,11 +36,9 @@ void test_DynArray() {
 
     // Add() + IsEmpty()
     {
-        DynArray *temp_da = NULL;
-        new_DynArray( &temp_da );
+        DynArray *temp_da = new_DynArray();
 
-        DayWeather *temp_day = NULL;
-        temp_day = (DayWeather *)malloc(sizeof(DayWeather));
+        DayWeather *temp_day = (DayWeather *)calloc(1, sizeof(DayWeather));
         temp_day->temperature = 20;
         temp_day->precipitation = THUNDERSTORM;
         temp_day->wind_speed = 12.5;
@@ -61,11 +57,9 @@ void test_DynArray() {
 
     // Pop()
     {
-        DynArray *temp_da = NULL;
-        new_DynArray( &temp_da );
+        DynArray *temp_da = new_DynArray();
 
-        DayWeather *temp_day = NULL;
-        temp_day = (DayWeather *)malloc(sizeof(DayWeather));
+        DayWeather *temp_day = (DayWeather *)calloc(1, sizeof(DayWeather));
         temp_day->temperature = 20;
         temp_day->precipitation = THUNDERSTORM;
         temp_day->wind_speed = 12.5;
@@ -85,12 +79,10 @@ void test_DynArray() {
 
     // Multiple Add and Pop
     {
-        DynArray *temp_da = NULL;
-        new_DynArray( &temp_da );
+        DynArray *temp_da = new_DynArray();
 
         size_t count = 100000;
-        DayWeather *temp_day = NULL;
-        temp_day = (DayWeather *)malloc(sizeof(DayWeather));
+        DayWeather *temp_day = (DayWeather *)calloc(1, sizeof(DayWeather));
         for (size_t iii = 0; iii < count; iii++) {
             temp_day->temperature = count % 10000 / 52.5 ;
             temp_day->precipitation = THUNDERSTORM;
@@ -104,7 +96,6 @@ void test_DynArray() {
 
         delete_DynArray(temp_da);
     }
-*/
     puts("OK");
 }
 
