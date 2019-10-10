@@ -53,11 +53,13 @@ CMAKE_BINARY_DIR = /Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/tests.out.dir/all
 all: CMakeFiles/IS1.dir/all
 
 .PHONY : all
 
 # The main recursive "clean" target.
+clean: CMakeFiles/tests.out.dir/clean
 clean: CMakeFiles/IS1.dir/clean
 
 .PHONY : clean
@@ -68,18 +70,45 @@ preinstall:
 .PHONY : preinstall
 
 #=============================================================================
+# Target rules for target CMakeFiles/tests.out.dir
+
+# All Build rule for target.
+CMakeFiles/tests.out.dir/all:
+	$(MAKE) -f CMakeFiles/tests.out.dir/build.make CMakeFiles/tests.out.dir/depend
+	$(MAKE) -f CMakeFiles/tests.out.dir/build.make CMakeFiles/tests.out.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles --progress-num=5,6,7,8 "Built target tests.out"
+.PHONY : CMakeFiles/tests.out.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/tests.out.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/tests.out.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/tests.out.dir/rule
+
+# Convenience name for target.
+tests.out: CMakeFiles/tests.out.dir/rule
+
+.PHONY : tests.out
+
+# clean rule for target.
+CMakeFiles/tests.out.dir/clean:
+	$(MAKE) -f CMakeFiles/tests.out.dir/build.make CMakeFiles/tests.out.dir/clean
+.PHONY : CMakeFiles/tests.out.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/IS1.dir
 
 # All Build rule for target.
 CMakeFiles/IS1.dir/all:
 	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/depend
 	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5 "Built target IS1"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target IS1"
 .PHONY : CMakeFiles/IS1.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/IS1.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/IS1.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/IS1.dir/rule

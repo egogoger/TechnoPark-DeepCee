@@ -7,7 +7,6 @@ set(CMAKE_DEPENDS_CHECK_C
   "/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/DayWeather.c" "/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles/IS1.dir/DayWeather.c.o"
   "/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/DynArray.c" "/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles/IS1.dir/DynArray.c.o"
   "/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/main.c" "/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles/IS1.dir/main.c.o"
-  "/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/tests.c" "/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles/IS1.dir/tests.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

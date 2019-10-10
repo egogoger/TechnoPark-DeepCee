@@ -11,12 +11,17 @@ add_executable(IS1
         DayWeather.c
         DayWeather.h)
 
-add_executable(tests.out tests.c)
+add_executable(tests.out
+        tests.c
+        DynArray.c
+        DynArray.h
+        DayWeather.c
+        DayWeather.h)
 
 enable_testing()
 
 add_test(NAME MainTest
-        COMMAND IS1)
+        COMMAND tests.out)
 
 set_tests_properties(MainTest PROPERTIES
         PASS_REGULAR_EXPRESSION "OK")

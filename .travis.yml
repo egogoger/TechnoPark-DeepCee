@@ -12,6 +12,7 @@ compiler:
     - clang
 
 env:
+    - sudo apt-get update
     - sudo apt-get install valgrind
     - sudo apt-get install libstdc++6
     - sudo apt-get install cmake
