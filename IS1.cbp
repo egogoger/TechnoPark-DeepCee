@@ -37,6 +37,34 @@
 					<DistClean command="/usr/bin/make -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="tests.out">
+				<Option output="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/tests.out" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/Makefile&quot;  VERBOSE=1 tests.out"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="tests.out/fast">
+				<Option output="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/tests.out" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/Makefile&quot;  VERBOSE=1 tests.out/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="test">
 				<Option working_dir="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee"/>
 				<Option type="4"/>
@@ -92,7 +120,7 @@
 			<Option target="IS1"/>
 		</Unit>
 		<Unit filename="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/tests.c">
-			<Option target="IS1"/>
+			<Option target="tests.out"/>
 		</Unit>
 		<Unit filename="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>

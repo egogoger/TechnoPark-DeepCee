@@ -39,10 +39,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/3.15.4/bin/cmake
+CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/3.15.4/bin/cmake -E remove -f
+RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /Users/egorbedov/CLionProjects/TechnoPark-DeepCee
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/local/Cellar/cmake/3.15.4/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -69,8 +69,8 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/local/Cellar/cmake/3.15.4/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -81,7 +81,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/local/Cellar/cmake/3.15.4/bin/ctest --force-new-ctest-process $(ARGS)
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest --force-new-ctest-process $(ARGS)
 .PHONY : test
 
 # Special rule for the target test
@@ -120,6 +120,19 @@ preinstall/fast:
 depend:
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+#=============================================================================
+# Target rules for targets named tests.out
+
+# Build rule for target.
+tests.out: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tests.out
+.PHONY : tests.out
+
+# fast build rule for target.
+tests.out/fast:
+	$(MAKE) -f CMakeFiles/tests.out.dir/build.make CMakeFiles/tests.out.dir/build
+.PHONY : tests.out/fast
 
 #=============================================================================
 # Target rules for targets named IS1
@@ -221,7 +234,7 @@ tests.o: tests.c.o
 
 # target to build an object file
 tests.c.o:
-	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/tests.c.o
+	$(MAKE) -f CMakeFiles/tests.out.dir/build.make CMakeFiles/tests.out.dir/tests.c.o
 .PHONY : tests.c.o
 
 tests.i: tests.c.i
@@ -230,7 +243,7 @@ tests.i: tests.c.i
 
 # target to preprocess a source file
 tests.c.i:
-	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/tests.c.i
+	$(MAKE) -f CMakeFiles/tests.out.dir/build.make CMakeFiles/tests.out.dir/tests.c.i
 .PHONY : tests.c.i
 
 tests.s: tests.c.s
@@ -239,7 +252,7 @@ tests.s: tests.c.s
 
 # target to generate assembly for a file
 tests.c.s:
-	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/tests.c.s
+	$(MAKE) -f CMakeFiles/tests.out.dir/build.make CMakeFiles/tests.out.dir/tests.c.s
 .PHONY : tests.c.s
 
 # Help Target
@@ -250,6 +263,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... tests.out"
 	@echo "... test"
 	@echo "... IS1"
 	@echo "... DayWeather.o"

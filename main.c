@@ -8,7 +8,6 @@
 
 void input(DayWeather** new_day);
 void printStats(size_t days, DynArray *dyn_array);
-void test_DynArray();
 
 void run() {
     printf("How many days you want to enter? - ");
@@ -58,7 +57,6 @@ void run() {
 
 int main() {
 
-    test_DynArray();
     // run();
     return 0;
 }

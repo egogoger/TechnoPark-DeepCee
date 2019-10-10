@@ -9,8 +9,9 @@ add_executable(IS1
         DynArray.c
         DynArray.h
         DayWeather.c
-        DayWeather.h
-        tests.c)
+        DayWeather.h)
+
+add_executable(tests.out tests.c)
 
 enable_testing()
 

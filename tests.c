@@ -114,3 +114,9 @@ void test_DynArray() {
     }
     puts("OK");
 }
+
+int main() {
+    test_DynArray();
+
+    return 0;
+}
