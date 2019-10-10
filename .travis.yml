@@ -12,7 +12,7 @@ compiler:
     - clang
 
 install:
-    #- sudo apt-get update
+    - sudo apt-get update
     - sudo apt-get install libstdc++6
     - sudo apt-get install cmake
 
@@ -23,20 +23,8 @@ env:
     - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
     - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
 
-matrix:
-    exclude:
-        # вручную исключим ненужные элементы из матрицы сборки:
-        - os:       osx
-          compiler: gcc
-
-        - os:  osx
-          env: TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
-
-        - os:  osx
-          env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
-
 script:
     - cd /home/travis/build/EgorBedov/TechnoPark-DeepCee
     - cmake .
-    - make
+    - cmake --build .
     - ctest .
