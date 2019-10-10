@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/EgorBedov/TechnoPark-DeepCee.svg?branch=tests)](https://travis-ci.org/EgorBedov/TechnoPark-DeepCee)
+
 # TechnoPark-DeepCee
 
   - Checkcpp
