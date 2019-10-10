@@ -8,4 +8,14 @@ add_executable(IS1
         DynArray.c
         DynArray.h
         DayWeather.c
-        DayWeather.h tests.c)
+        DayWeather.h
+        tests.c)
+
+
+enable_testing()
+
+add_test(NAME MainTest
+        COMMAND IS1)
+
+set_tests_properties(MainTest PROPERTIES
+        PASS_REGULAR_EXPRESSION "OK")
