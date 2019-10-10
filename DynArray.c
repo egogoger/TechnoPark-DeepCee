@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
-#include <string.h>
 
 #include "DynArray.h"
 #include "DayWeather.h"

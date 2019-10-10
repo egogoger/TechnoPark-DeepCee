@@ -18,8 +18,6 @@ typedef struct DayWeather {
     double wind_speed;
 } DayWeather;
 
-// DayWeather* new_DayWeather();
-
 char* print_weather_forecast(DayWeather today);
 
 #endif //IS1_DAYWEATHER_H

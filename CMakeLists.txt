@@ -1,7 +1,8 @@
-cmake_minimum_required(VERSION 3.15)
-project(IS1 C)
+cmake_minimum_required(VERSION 3.8)
+project(IS1)
 
 set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED ON)
 
 add_executable(IS1
         main.c
@@ -10,7 +11,6 @@ add_executable(IS1
         DayWeather.c
         DayWeather.h
         tests.c)
-
 
 enable_testing()
 
