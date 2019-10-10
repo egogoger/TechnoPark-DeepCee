@@ -15,7 +15,7 @@ DynArray* new_DynArray()
 
     dyn_array->buffer = (DayWeather*)calloc( dyn_array->buffer_size, sizeof(DayWeather) );
     if ( !dyn_array->buffer ) {
-        malloc_fail( dyn_array );
+        delete_DynArray( dyn_array );
         return NULL;
     }
     dyn_array->real_size = 0;
@@ -23,8 +23,12 @@ DynArray* new_DynArray()
     return dyn_array;
 }
 
-void delete_DynArray(DynArray *dyn_array) {
+int delete_DynArray(DynArray *dyn_array) {  // malloc_fail
+    if ( !dyn_array )
+        return -1;
+    free(dyn_array->buffer);
     free(dyn_array);
+    return 0;
 }
 
 size_t IsEmpty(DynArray *dyn_array) {
@@ -37,7 +41,7 @@ void Expand(DynArray *dyn_array) {
     DayWeather *bigger_buffer;
     bigger_buffer = (DayWeather*)malloc(bigger_buffer_size * sizeof(DayWeather));
     if (!bigger_buffer)
-        malloc_fail(dyn_array);
+        delete_DynArray(dyn_array);
 
     // memcpy(bigger_buffer, dyn_array->buffer, bigger_buffer_size * sizeof(DayWeather));
     for (size_t iii = 0; iii < dyn_array->buffer_size; iii++)
@@ -61,12 +65,4 @@ void Add(DynArray *dyn_array, DayWeather* day) {
 DayWeather Pop(DynArray *dyn_array) {
     assert(dyn_array->buffer != 0);
     return dyn_array->buffer[--dyn_array->real_size];
-}
-
-int malloc_fail(DynArray *dyn_array) {
-    if ( !dyn_array )
-        return -1;
-    free(dyn_array->buffer);
-    free(dyn_array);
-    return 0;
 }
