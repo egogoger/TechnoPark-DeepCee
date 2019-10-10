@@ -30,16 +30,9 @@ environment:
         - TOOLCHAIN: msvc14
 
 build_script:
-    # скрипт сборки проекта:
-    - mkdir build
-    - cd build
-    - cmake .. %CMAKE_CONFIGURE_FLAGS%
-    - cmake --build . %CMAKE_BUILD_FLAGS%
+    - cmake .
+    - cmake --build .
 
 test_script:
     # скрипт тестирования проекта:
-    - ctest -C %CONFIGURATION% --output-on-failure
-
-artifacts:
-    - path: <local-package-path>
-      name: package_name
+    - ctest .
