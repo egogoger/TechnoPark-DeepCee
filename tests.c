@@ -14,7 +14,6 @@
  * That's 7 functions in total to be tested
  * Some of them are dependant of the others so we'll start from the top
 */
-
 void test_DynArray() {
 
     // new_DynArray() + delete_DynArray()

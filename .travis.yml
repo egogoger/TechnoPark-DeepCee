@@ -12,7 +12,7 @@ compiler:
     - clang
 
 install:
-    - sudo apt-get update
+    #- sudo apt-get update
     - sudo apt-get install libstdc++6
     - sudo apt-get install cmake
 
@@ -38,5 +38,5 @@ matrix:
 script:
     - cd /home/travis/build/EgorBedov/TechnoPark-DeepCee
     - cmake .
-    - cmake --build .
+    - make
     - ctest .

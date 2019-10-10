@@ -16,7 +16,7 @@ void run() {
     char buffer[50];
     scanf("%s", buffer);
     num = atoi(buffer);
-    while( !num ) {
+    while (!num) {
         puts("Invalid string!");
         scanf("%s", buffer);
         num = atoi(buffer);
@@ -28,7 +28,7 @@ void run() {
 
     puts("Precipitations: CLOUDY=1, FOG=2, RAIN=3, SHOWER=4, THUNDERSTORM=5, SNOW=6");
     for (size_t iii = 0; iii < num; iii++) {
-        DayWeather* new_day = NULL;
+        DayWeather *new_day = NULL;
         input(&new_day);
 
         Add(week_1, new_day);
@@ -45,7 +45,7 @@ void run() {
     size_t stat = 0;
     scanf("%s", buffer);
     stat = atoi(buffer);
-    while( !stat || stat > week_1->real_size ) {
+    while (!stat || stat > week_1->real_size) {
         puts("Invalid string!");
         scanf("%s", buffer);
         stat = atoi(buffer);
@@ -59,7 +59,6 @@ void run() {
 int main() {
 
     test_DynArray();
-
     // run();
     return 0;
 }

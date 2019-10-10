@@ -6,18 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/DayWeather.c
-stdlib.h
--
-stdio.h
--
-assert.h
--
-string.h
--
-DayWeather.h
-/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/DayWeather.h
-
 /Users/egorbedov/CLionProjects/TechnoPark-DeepCee/DayWeather.h
 
 /Users/egorbedov/CLionProjects/TechnoPark-DeepCee/DynArray.c

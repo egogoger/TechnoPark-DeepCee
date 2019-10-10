@@ -39,6 +39,7 @@ void Expand(DynArray *dyn_array) {
     if (!bigger_buffer)
         malloc_fail(dyn_array);
 
+    // memcpy(bigger_buffer, dyn_array->buffer, bigger_buffer_size * sizeof(DayWeather));
     for (size_t iii = 0; iii < dyn_array->buffer_size; iii++)
         bigger_buffer[iii] = dyn_array->buffer[iii];
 
