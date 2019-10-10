@@ -79,21 +79,11 @@
 					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="test">
-				<Option working_dir="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 test"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="IS1">
-				<Option output="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/IS1" prefix_auto="0" extension_auto="0"/>
+			<Target title="forecast_lib">
+				<Option output="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/libforecast_lib.a" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug"/>
 				<Option object_output="./"/>
-				<Option type="1"/>
+				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
@@ -104,17 +94,17 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 IS1"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 forecast_lib"/>
 					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="IS1/fast">
-				<Option output="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/IS1" prefix_auto="0" extension_auto="0"/>
+			<Target title="forecast_lib/fast">
+				<Option output="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/libforecast_lib.a" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug"/>
 				<Option object_output="./"/>
-				<Option type="1"/>
+				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
@@ -125,7 +115,7 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 IS1/fast"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 forecast_lib/fast"/>
 					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -134,22 +124,17 @@
 		</Build>
 		<Unit filename="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/DayWeather.c">
 			<Option target="tests.out"/>
-			<Option target="IS1"/>
+			<Option target="forecast_lib"/>
 		</Unit>
 		<Unit filename="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/DayWeather.h">
 			<Option target="tests.out"/>
-			<Option target="IS1"/>
 		</Unit>
 		<Unit filename="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/DynArray.c">
 			<Option target="tests.out"/>
-			<Option target="IS1"/>
+			<Option target="forecast_lib"/>
 		</Unit>
 		<Unit filename="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/DynArray.h">
 			<Option target="tests.out"/>
-			<Option target="IS1"/>
-		</Unit>
-		<Unit filename="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/main.c">
-			<Option target="IS1"/>
 		</Unit>
 		<Unit filename="/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/tests.c">
 			<Option target="tests.out"/>

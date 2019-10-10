@@ -6,14 +6,6 @@
 #include "DayWeather.h"
 #include "DynArray.h"
 
-/* I dunno how that should work
- * but i have 1 func in DayWeather.h which refuses to be checked
- * 7 funcs in DynArray.h and two of them won't ever return an error
- * 2 funcs in main.c
- *
- * That's 7 functions in total to be tested
- * Some of them are dependant of the others so we'll start from the top
-*/
 void test_DynArray() {
 
     // new_DynArray() + delete_DynArray()

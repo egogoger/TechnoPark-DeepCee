@@ -23,8 +23,8 @@ env:
     - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
 
 script:
-#    - cd /home/travis/build/EgorBedov/TechnoPark-DeepCee
     - cmake .
-    - cmake --build .
-    - ctest .
+    - make
+#    - cmake --build .
+#    - ctest .
     - valgrind --tool=memcheck --leak-check=full --leak-resolution=med  --track-origins=yes ./tests.out

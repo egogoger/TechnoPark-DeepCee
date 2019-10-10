@@ -4,12 +4,18 @@ project(IS1)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-add_executable(IS1
-        main.c
+set(LIB_SOURCE_FILES
         DynArray.c
-        DynArray.h
-        DayWeather.c
-        DayWeather.h)
+        DayWeather.c)
+
+add_library(forecast_lib STATIC ${LIB_SOURCE_FILES})
+
+#add_executable(IS1
+#        main.c
+#        DynArray.c
+#        DynArray.h
+#        DayWeather.c
+#        DayWeather.h)
 
 add_executable(tests.out
         tests.c
@@ -18,10 +24,13 @@ add_executable(tests.out
         DayWeather.c
         DayWeather.h)
 
-enable_testing()
+target_link_libraries(tests.out forecast_lib)
 
-add_test(NAME MainTest
-        COMMAND tests.out)
-
-set_tests_properties(MainTest PROPERTIES
-        PASS_REGULAR_EXPRESSION "OK")
+#enable_testing()
+#
+#add_test(NAME MainTest
+#        COMMAND tests.out)
+#
+#set_tests_properties(MainTest PROPERTIES
+#        PASS_REGULAR_EXPRESSION "OK")
+#
