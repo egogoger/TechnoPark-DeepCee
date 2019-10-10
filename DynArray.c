@@ -5,21 +5,22 @@
 #include "DynArray.h"
 #include "DayWeather.h"
 
-void new_DynArray(DynArray** dyn_array)
+DynArray* new_DynArray()
 {
-    *dyn_array = malloc(sizeof(DynArray));
-    if ( !(*dyn_array) )
-        malloc_fail( (*dyn_array) );
+    DynArray* dyn_array = calloc(1, sizeof(DynArray));
+    if ( !dyn_array )
+        return NULL;
 
-    (*dyn_array)->buffer_size = DAYS_IN_WEEK;
+    dyn_array->buffer_size = DAYS_IN_WEEK;
 
-    DayWeather *buffer;
-    buffer = (DayWeather*)malloc((*dyn_array)->buffer_size * sizeof(DayWeather));
-    if ( !buffer )
-        malloc_fail((*dyn_array));
-    (*dyn_array)->buffer = buffer;
+    dyn_array->buffer = (DayWeather*)calloc( dyn_array->buffer_size, sizeof(DayWeather) );
+    if ( !dyn_array->buffer ) {
+        malloc_fail( dyn_array );
+        return NULL;
+    }
+    dyn_array->real_size = 0;
 
-    (*dyn_array)->real_size = 0;
+    return dyn_array;
 }
 
 void delete_DynArray(DynArray *dyn_array) {
@@ -62,7 +63,10 @@ DayWeather Pop(DynArray *dyn_array) {
     return dyn_array->buffer[--dyn_array->real_size];
 }
 
-void malloc_fail(DynArray *dyn_array) {
+int malloc_fail(DynArray *dyn_array) {
+    if ( !dyn_array )
+        return -1;
     free(dyn_array->buffer);
     free(dyn_array);
+    return 0;
 }

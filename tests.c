@@ -10,11 +10,11 @@ void test_DynArray() {
 
     // new_DynArray() + delete_DynArray()
     {
-        DynArray *temp_da = NULL;
-        new_DynArray(&temp_da);
+        DynArray *temp_da = new_DynArray();
+
         delete_DynArray(temp_da);
     }
-
+/*
     // Expand()
     {
         DynArray *temp_da = NULL;
@@ -104,6 +104,7 @@ void test_DynArray() {
 
         delete_DynArray(temp_da);
     }
+*/
     puts("OK");
 }
 

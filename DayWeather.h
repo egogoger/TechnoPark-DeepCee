@@ -12,7 +12,7 @@ typedef enum precipitations {
     TOTAL_AMOUNT,
 } precipitations;
 
-typedef struct DayWeather {
+typedef struct {
     double temperature;
     precipitations precipitation;
     double wind_speed;
