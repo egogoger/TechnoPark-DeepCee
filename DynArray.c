@@ -1,6 +1,6 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "DynArray.h"
@@ -26,10 +26,10 @@ DynArray* new_DynArray()
 
 int delete_DynArray(DynArray *dyn_array) {  // malloc_fail
     if ( !dyn_array )
-        return -1;
+        return EXIT_FAILURE;
     free(dyn_array->buffer);
     free(dyn_array);
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 size_t IsEmpty(DynArray *dyn_array) {
@@ -44,9 +44,9 @@ void Expand(DynArray *dyn_array) {
     if ( !bigger_buffer )
         delete_DynArray( dyn_array );
 
-    // memcpy(bigger_buffer, dyn_array->buffer, bigger_buffer_size * sizeof(DayWeather));
-    for (size_t iii = 0; iii < dyn_array->buffer_size; iii++)
-        bigger_buffer[iii] = dyn_array->buffer[iii];
+    memcpy(bigger_buffer, dyn_array->buffer, dyn_array->buffer_size * sizeof(DayWeather));
+    // for (size_t iii = 0; iii < dyn_array->buffer_size; iii++)
+    //     bigger_buffer[iii] = dyn_array->buffer[iii];
 
     free(dyn_array->buffer);
 

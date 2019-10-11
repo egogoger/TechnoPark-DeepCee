@@ -26,11 +26,11 @@ add_executable(tests.out
 
 target_link_libraries(tests.out forecast_lib)
 
-#enable_testing()
-#
-#add_test(NAME MainTest
-#        COMMAND tests.out)
-#
-#set_tests_properties(MainTest PROPERTIES
-#        PASS_REGULAR_EXPRESSION "OK")
-#
+# My own tests
+enable_testing()
+
+add_test(NAME MainTest
+        COMMAND tests.out)
+
+set_tests_properties(MainTest PROPERTIES
+        PASS_REGULAR_EXPRESSION "OK")

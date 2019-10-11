@@ -1,10 +1,10 @@
-Start testing: Oct 10 23:00 MSK
+Start testing: Oct 12 01:41 MSK
 ----------------------------------------------------------
 1/1 Testing: MainTest
 1/1 Test: MainTest
-Command: "/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/IS1"
+Command: "/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/tests.out"
 Directory: /Users/egorbedov/CLionProjects/TechnoPark-DeepCee
-"MainTest" start time: Oct 10 23:00 MSK
+"MainTest" start time: Oct 12 01:41 MSK
 Output:
 ----------------------------------------------------------
 OK
@@ -14,8 +14,8 @@ Test time =   0.01 sec
 Test Pass Reason:
 Required regular expression found.Regex=[OK
 ]
-"MainTest" end time: Oct 10 23:00 MSK
+"MainTest" end time: Oct 12 01:41 MSK
 "MainTest" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Oct 10 23:00 MSK
+End testing: Oct 12 01:41 MSK
