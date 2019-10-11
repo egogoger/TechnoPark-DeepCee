@@ -95,6 +95,8 @@ DayWeather* manual_input() {
     new_day->temperature = temper;
     new_day->precipitation = prec;
     new_day->wind_speed = ws;
+    
+    free(new_day);
 }
 
 int printStats(size_t days, DynArray *dyn_array, FILE* output) {
