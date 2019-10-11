@@ -12,8 +12,12 @@ install:
     - sudo apt-get install valgrind
     - sudo apt-get install libstdc++6
     - sudo apt-get install cmake
+    - sudo apt-get install cppcheck
 
 script:
     - cmake .
     - make
+    # valgrind
     - valgrind --tool=memcheck --leak-check=full --leak-resolution=med  --track-origins=yes ./tests.out
+    # cppcheck
+    - cppcheck --quiet --error-exitcode=1 .

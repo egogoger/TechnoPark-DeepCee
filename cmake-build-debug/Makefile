@@ -56,6 +56,17 @@ CMAKE_BINARY_DIR = /Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -77,17 +88,6 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -122,19 +122,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named IS1
-
-# Build rule for target.
-IS1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 IS1
-.PHONY : IS1
-
-# fast build rule for target.
-IS1/fast:
-	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/build
-.PHONY : IS1/fast
-
-#=============================================================================
 # Target rules for targets named tests.out
 
 # Build rule for target.
@@ -166,7 +153,6 @@ DayWeather.o: DayWeather.c.o
 
 # target to build an object file
 DayWeather.c.o:
-	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/DayWeather.c.o
 	$(MAKE) -f CMakeFiles/tests.out.dir/build.make CMakeFiles/tests.out.dir/DayWeather.c.o
 	$(MAKE) -f CMakeFiles/forecast_lib.dir/build.make CMakeFiles/forecast_lib.dir/DayWeather.c.o
 .PHONY : DayWeather.c.o
@@ -177,7 +163,6 @@ DayWeather.i: DayWeather.c.i
 
 # target to preprocess a source file
 DayWeather.c.i:
-	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/DayWeather.c.i
 	$(MAKE) -f CMakeFiles/tests.out.dir/build.make CMakeFiles/tests.out.dir/DayWeather.c.i
 	$(MAKE) -f CMakeFiles/forecast_lib.dir/build.make CMakeFiles/forecast_lib.dir/DayWeather.c.i
 .PHONY : DayWeather.c.i
@@ -188,7 +173,6 @@ DayWeather.s: DayWeather.c.s
 
 # target to generate assembly for a file
 DayWeather.c.s:
-	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/DayWeather.c.s
 	$(MAKE) -f CMakeFiles/tests.out.dir/build.make CMakeFiles/tests.out.dir/DayWeather.c.s
 	$(MAKE) -f CMakeFiles/forecast_lib.dir/build.make CMakeFiles/forecast_lib.dir/DayWeather.c.s
 .PHONY : DayWeather.c.s
@@ -199,7 +183,6 @@ DynArray.o: DynArray.c.o
 
 # target to build an object file
 DynArray.c.o:
-	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/DynArray.c.o
 	$(MAKE) -f CMakeFiles/tests.out.dir/build.make CMakeFiles/tests.out.dir/DynArray.c.o
 	$(MAKE) -f CMakeFiles/forecast_lib.dir/build.make CMakeFiles/forecast_lib.dir/DynArray.c.o
 .PHONY : DynArray.c.o
@@ -210,7 +193,6 @@ DynArray.i: DynArray.c.i
 
 # target to preprocess a source file
 DynArray.c.i:
-	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/DynArray.c.i
 	$(MAKE) -f CMakeFiles/tests.out.dir/build.make CMakeFiles/tests.out.dir/DynArray.c.i
 	$(MAKE) -f CMakeFiles/forecast_lib.dir/build.make CMakeFiles/forecast_lib.dir/DynArray.c.i
 .PHONY : DynArray.c.i
@@ -221,37 +203,9 @@ DynArray.s: DynArray.c.s
 
 # target to generate assembly for a file
 DynArray.c.s:
-	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/DynArray.c.s
 	$(MAKE) -f CMakeFiles/tests.out.dir/build.make CMakeFiles/tests.out.dir/DynArray.c.s
 	$(MAKE) -f CMakeFiles/forecast_lib.dir/build.make CMakeFiles/forecast_lib.dir/DynArray.c.s
 .PHONY : DynArray.c.s
-
-main.o: main.c.o
-
-.PHONY : main.o
-
-# target to build an object file
-main.c.o:
-	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/main.c.o
-.PHONY : main.c.o
-
-main.i: main.c.i
-
-.PHONY : main.i
-
-# target to preprocess a source file
-main.c.i:
-	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/main.c.i
-.PHONY : main.c.i
-
-main.s: main.c.s
-
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.c.s:
-	$(MAKE) -f CMakeFiles/IS1.dir/build.make CMakeFiles/IS1.dir/main.c.s
-.PHONY : main.c.s
 
 tests.o: tests.c.o
 
@@ -286,11 +240,10 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... test"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... IS1"
 	@echo "... tests.out"
-	@echo "... test"
 	@echo "... forecast_lib"
 	@echo "... DayWeather.o"
 	@echo "... DayWeather.i"
@@ -298,9 +251,6 @@ help:
 	@echo "... DynArray.o"
 	@echo "... DynArray.i"
 	@echo "... DynArray.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
 	@echo "... tests.o"
 	@echo "... tests.i"
 	@echo "... tests.s"

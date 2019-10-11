@@ -151,7 +151,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=IS1
+CMAKE_PROJECT_NAME:STATIC=tests.c
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/Library/Developer/CommandLineTools/usr/bin/ranlib
@@ -220,6 +220,12 @@ IS1_SOURCE_DIR:STATIC=/Users/egorbedov/CLionProjects/TechnoPark-DeepCee
 
 //Path to a program.
 ProcessorCount_cmd_sysctl:FILEPATH=/usr/sbin/sysctl
+
+//Value Computed by CMake
+tests.c_BINARY_DIR:STATIC=/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug
+
+//Value Computed by CMake
+tests.c_SOURCE_DIR:STATIC=/Users/egorbedov/CLionProjects/TechnoPark-DeepCee
 
 
 ########################
