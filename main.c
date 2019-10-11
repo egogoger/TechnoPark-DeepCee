@@ -6,8 +6,8 @@
 #include "DynArray.h"
 #include "DayWeather.h"
 
-void input(DayWeather** new_day);
-void printStats(size_t days, DynArray *dyn_array);
+DayWeather* manual_input();
+int printStats(size_t days, DynArray *dyn_array, FILE* output);
 
 void run() {
     printf("How many days you want to enter? - ");
@@ -26,19 +26,12 @@ void run() {
 
 
     puts("Precipitations: CLOUDY=1, FOG=2, RAIN=3, SHOWER=4, THUNDERSTORM=5, SNOW=6");
+    DayWeather *new_day = NULL;
     for (size_t iii = 0; iii < num; iii++) {
-        DayWeather *new_day = NULL;
-        input(&new_day);
-
+        new_day = manual_input();
         Add(week_1, new_day);
-
-        free(new_day);
-
-        // char *str;
-        // str = (char *)malloc(MAX_LEN * sizeof(char));
-        // strcpy(str, print_weather_forecast(week_1->buffer[iii]));
-        // printf("%s", str);
     }
+    free(new_day);
 
     puts("Statistics for how many days? (1=today)");
     size_t stat = 0;
@@ -50,20 +43,12 @@ void run() {
         stat = atoi(buffer);
     }
 
-    printStats(stat, week_1);
-
     delete_DynArray(week_1);
 }
 
-int main() {
-
-    // run();
-    return 0;
-}
-
-void input(DayWeather** new_day) {
+DayWeather* manual_input() {
     char buffer[50];
-    *new_day = malloc(sizeof(DayWeather));
+    DayWeather *new_day = calloc(1, sizeof(DayWeather));
 
     // Input temperature
     printf("\nTemperature: ");
@@ -107,16 +92,17 @@ void input(DayWeather** new_day) {
     }
 
     // Commit changes :)
-    (*new_day)->temperature = temper;
-    (*new_day)->precipitation = prec;
-    (*new_day)->wind_speed = ws;
+    new_day->temperature = temper;
+    new_day->precipitation = prec;
+    new_day->wind_speed = ws;
 }
 
-void printStats(size_t days, DynArray *dyn_array) {
-    float stat = 0;
-    for (int iii = 0; iii < days; iii++) {
+int printStats(size_t days, DynArray *dyn_array, FILE* output) {
+    double stat = 0;
+    for (size_t iii = 0; iii < days; iii++) {
         stat += dyn_array->buffer[iii].temperature;
     }
     stat /= days;
-    printf("%f", stat);
+    fprintf(output, "%f", stat);
+    return EXIT_SUCCESS;
 }

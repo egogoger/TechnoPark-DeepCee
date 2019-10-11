@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(IS1)
+project(tests.c)
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -9,13 +9,6 @@ set(LIB_SOURCE_FILES
         DayWeather.c)
 
 add_library(forecast_lib STATIC ${LIB_SOURCE_FILES})
-
-#add_executable(IS1
-#        main.c
-#        DynArray.c
-#        DynArray.h
-#        DayWeather.c
-#        DayWeather.h)
 
 add_executable(tests.out
         tests.c
