@@ -50,7 +50,6 @@ configuration:
 
 build_script:
   - cmake .
-  - make
 
 test_script:
   - ctest .
