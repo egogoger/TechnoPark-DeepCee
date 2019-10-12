@@ -14,11 +14,9 @@ install:
     - sudo apt-get install cmake
     - sudo apt-get install cppcheck
 
-build:
+script:
     - cmake .
     - make
-
-script:
     # valgrind
     - valgrind --tool=memcheck --leak-check=full --leak-resolution=med  --track-origins=yes ./tests.out
     # cppcheck
