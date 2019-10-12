@@ -6,16 +6,17 @@
 #include "DynArray.h"
 #include "DayWeather.h"
 
-DynArray *new_DynArray() {
-    DynArray *dyn_array = calloc(1, sizeof(DynArray));
-    if (!dyn_array)
+DynArray* new_DynArray()
+{
+    DynArray* dyn_array = calloc(1, sizeof(DynArray));
+    if ( !dyn_array )
         return NULL;
 
     dyn_array->buffer_size = DAYS_IN_WEEK;
 
-    dyn_array->buffer = (DayWeather *) calloc(dyn_array->buffer_size, sizeof(DayWeather));
-    if (!dyn_array->buffer) {
-        delete_DynArray(dyn_array);
+    dyn_array->buffer = (DayWeather*)calloc( dyn_array->buffer_size, sizeof(DayWeather) );
+    if ( !dyn_array->buffer ) {
+        delete_DynArray( dyn_array );
         return NULL;
     }
     dyn_array->real_size = 0;
@@ -24,7 +25,7 @@ DynArray *new_DynArray() {
 }
 
 int delete_DynArray(DynArray *dyn_array) {  // malloc_fail
-    if (!dyn_array)
+    if ( !dyn_array )
         return EXIT_FAILURE;
     free(dyn_array->buffer);
     free(dyn_array);
@@ -39,9 +40,9 @@ void Expand(DynArray *dyn_array) {
     size_t bigger_buffer_size = dyn_array->buffer_size * 2;
 
     DayWeather *bigger_buffer;
-    bigger_buffer = (DayWeather *) malloc(bigger_buffer_size * sizeof(DayWeather));
-    if (!bigger_buffer)
-        delete_DynArray(dyn_array);
+    bigger_buffer = (DayWeather*)malloc(bigger_buffer_size * sizeof(DayWeather));
+    if ( !bigger_buffer )
+        delete_DynArray( dyn_array );
 
     memcpy(bigger_buffer, dyn_array->buffer, dyn_array->buffer_size * sizeof(DayWeather));
     // for (size_t iii = 0; iii < dyn_array->buffer_size; iii++)
@@ -53,7 +54,7 @@ void Expand(DynArray *dyn_array) {
     dyn_array->buffer_size = bigger_buffer_size;
 }
 
-void Add(DynArray *dyn_array, DayWeather *day) {
+void Add(DynArray *dyn_array, DayWeather* day) {
     if (dyn_array->real_size == dyn_array->buffer_size)
         Expand(dyn_array);
     assert(dyn_array->real_size < dyn_array->buffer_size && dyn_array->buffer != 0);
