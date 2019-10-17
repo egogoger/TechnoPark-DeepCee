@@ -16,7 +16,6 @@ void        Add             (DynArray *dyn_array, DayWeather* day);
 DayWeather  Pop             (DynArray *dyn_array);
 int         delete_DynArray (DynArray *dyn_array);
 
-
 #endif //IS1_DYNARRAY_H
 
 #define DAYS_IN_WEEK 7
