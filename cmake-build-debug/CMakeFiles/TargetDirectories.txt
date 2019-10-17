@@ -1,5 +1,0 @@
-/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles/test.dir
-/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles/tests.out.dir
-/Users/egorbedov/CLionProjects/TechnoPark-DeepCee/cmake-build-debug/CMakeFiles/forecast_lib.dir
