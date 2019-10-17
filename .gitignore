@@ -9,6 +9,7 @@ cmake_uninstall.cmake
 
 # Idea
 .idea
+.DS_Store
 
 #################
 # Default for C #
