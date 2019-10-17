@@ -1,12 +1,13 @@
 # CMake stuff
 CMakeFiles/
+cmake-build-debug/
+Testing/
 Makefile
 cmake_install.cmake
 CMakeCache.txt
 CPackConfig.cmake
 CPackSourceConfig.cmake
 cmake_uninstall.cmake
-
 # Idea
 .idea
 .DS_Store
