@@ -38,7 +38,7 @@ int main() {
 
     /// Creating array of sequences
     printf("Amount of sequences: ");
-    int seqs_amount = input_amount();
+    size_t seqs_amount = input_amount();
     char **sequences = (char **)calloc(seqs_amount, sizeof(char*));
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
         sequences[iii] = (char *)calloc(MAX_CHARS, sizeof(char));
@@ -70,10 +70,20 @@ int main() {
         pid[iii] = fork();
         if ( pid[iii] == -1 ) {
             fprintf(stderr, "Failed to fork\n");
+            for ( size_t kkk = 0; kkk < seqs_amount; kkk++ ) {
+                free(sequences[kkk]);
+                delete_DynArray(indices[kkk]);
+                free(fds[kkk]);
+            }
+            free(sequences);
+            free(indices);
+            free(fds);
+            free(pid);
             exit(EXIT_FAILURE);
         } else if ( pid[iii] == 0 ) {
 
             /// Child process works
+//            printf("##### child #%lu works #####\n", iii);
             close(fds[iii][0]);
             proc_strstr(filename, sequences[iii], indices[iii]);
 
@@ -81,7 +91,6 @@ int main() {
             write(fds[iii][1], &(indices[iii]->buffer_size), sizeof(indices[iii]->buffer_size));
             write(fds[iii][1], indices[iii]->buffer, indices[iii]->real_size * sizeof(int));
 
-            // TODO: fix the free
             for ( size_t kkk = 0; kkk < seqs_amount; kkk++ ) {
                 free(sequences[kkk]);
                 delete_DynArray(indices[kkk]);
@@ -92,6 +101,7 @@ int main() {
             free(fds);
             free(pid);
 
+//            printf("##### child #%lu stops #####\n", iii);
             exit(EXIT_SUCCESS);
         }
     }
@@ -99,30 +109,41 @@ int main() {
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
 
         /// Wait till all processes are over
-        waitpid(pid[iii], &status, 0);
-        if ( WEXITSTATUS(status) ) {
+        printf("waitpid returned %d\n", waitpid(pid[iii], &status, 0));
+        if ( WIFEXITED(status) == 0 ) {
             fprintf(stderr, "Failed to finish a process\n");
+            for ( size_t kkk = 0; kkk < seqs_amount; kkk++ ) {
+                free(sequences[kkk]);
+                delete_DynArray(indices[kkk]);
+                free(fds[kkk]);
+            }
+            free(sequences);
+            free(indices);
+            free(fds);
+            free(pid);
             exit(EXIT_FAILURE);
         }
-        close(fds[iii][1]);
 
         /// Read parts of DynArray
+
+        int tempo = 0;
+        close(fds[iii][1]);
         read(fds[iii][0], &(indices[iii]->real_size), sizeof(indices[iii]->real_size));
         read(fds[iii][0], &(indices[iii]->buffer_size), sizeof(indices[iii]->buffer_size));
-        read(fds[iii][0], indices[iii]->buffer, indices[iii]->real_size * sizeof(int));
+        tempo = read(fds[iii][0], indices[iii]->buffer, indices[iii]->real_size * sizeof(int));
+        printf("read - %d\n", tempo);
 
-        close(fds[iii][0]);
     }
 
 
-    /////////////////////////////////////////////////////////////
-    ///////////////////////// MAIN AREA /////////////////////////
-    /////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+    ////////////////////// MAIN AREA over //////////////////////
+    ////////////////////////////////////////////////////////////
 
     /// Printing out indices
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
         printf("%s: ", sequences[iii]);
-        for ( size_t jjj = 0; jjj < indices[iii]->real_size; jjj++ ) {
+        for ( int jjj = 0; jjj < indices[iii]->real_size; jjj++ ) {
             printf("%d, ", indices[iii]->buffer[jjj]);
         }
         puts("");
@@ -158,7 +179,7 @@ int input_amount() {
 
 void input_seqs(const size_t amount, char **array) {
     scanf(" %s", array[0]);
-    for ( int iii = 1; iii < amount; iii++ ) {
+    for ( size_t iii = 1; iii < amount; iii++ ) {
         scanf("%s", array[iii]);
     }
 }
@@ -176,7 +197,7 @@ void proc_strstr(const char* filename, const char* sequence, DynArray *array) {
     /// Start searching
     char ch;
     int jjj = 0;
-    while ( !feof(gibber) ) {            // TODO: remove 50k
+    while ( !feof(gibber) && jjj < 156 ) {
         if ( (ch = fgetc(gibber)) == sequence[0] ) {
             fpos_t position;
             fgetpos(gibber, &position);         // Remember the position to return to

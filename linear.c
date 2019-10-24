@@ -35,7 +35,7 @@ int main() {
 
     /// Creating array of words
     printf("Amount of sequences: ");
-    int seqs_amount = input_amount();
+    size_t seqs_amount = input_amount();
     char **sequences = (char **)calloc(seqs_amount, sizeof(char*));
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
         sequences[iii] = (char *)calloc(MAX_CHARS, sizeof(char));
@@ -53,10 +53,9 @@ int main() {
     //////////////////////////////////////////////////////////////////
 
     /// Counting here
-    for ( int iii = 0; iii < seqs_amount; iii++ ) {
+    for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
         fpos_t start;
         fgetpos(gibber, &start);
-        int index = 0;
         char ch;
         int jjj = 0;
         while ( !feof(gibber) ) {
@@ -89,7 +88,7 @@ int main() {
     /// Printing out indices
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
         printf("%s: ", sequences[iii]);
-        for ( size_t jjj = 0; jjj < indices[iii]->real_size; jjj++ ) {
+        for ( int jjj = 0; jjj < indices[iii]->real_size; jjj++ ) {
             printf("%d, ", indices[iii]->buffer[jjj]);
         }
         puts("");
@@ -127,7 +126,7 @@ int input_amount() {
 
 void input_seqs(const size_t amount, char **array) {
     scanf(" %s", array[0]);
-    for ( int iii = 1; iii < amount; iii++ ) {
+    for ( size_t iii = 1; iii < amount; iii++ ) {
         scanf("%s", array[iii]);
     }
 }

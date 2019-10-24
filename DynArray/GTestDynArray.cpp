@@ -24,7 +24,8 @@ TEST(DynArray, is_empty) {
     delete_DynArray(da);
 }
 
-TEST(DynArray, split_str) {
+/// Also grow()
+TEST(DynArray, add) {
 
     DynArray *temp_da = new_DynArray();
 
@@ -39,6 +40,23 @@ TEST(DynArray, split_str) {
     grow(temp_da);
     if ( temp_da->buffer_size <= previous_buffer_size ) {
         GTEST_FAIL() << " DynArray should have grew in size";
+    }
+
+    delete_DynArray(temp_da);
+}
+
+TEST(DynArray, pop) {
+    DynArray *temp_da = new_DynArray();
+
+    int test_value = 10;
+
+    add(temp_da, test_value);
+    int previous_real_size = temp_da->real_size;
+
+    int tmp = pop(temp_da);
+
+    if ( tmp != test_value && previous_real_size != temp_da->real_size ) {
+        GTEST_FAIL() << " DynArray should have popped an element";
     }
 
     delete_DynArray(temp_da);
