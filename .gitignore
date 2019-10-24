@@ -1,5 +1,5 @@
 # CMake stuff
-CMakeFiles/
+cmake-build-debug/CMakeFiles/
 cmake-build-debug/
 Testing/
 Makefile
@@ -12,6 +12,9 @@ CTestTestfile.cmake
 
 # Idea
 .idea/
+
+# 100MB file
+cmake-build-debug/gibberish.txt
 
 #################
 # Default for C #
