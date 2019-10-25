@@ -8,6 +8,8 @@
 
 #define MAX_CHARS 50
 
+int check_file(const char* filename);
+
 int find_indices(const char* const filename, const size_t seqs_amount, char **sequences);
 
 #endif  //  PROJECT_LINEAR_LINEAR_H_

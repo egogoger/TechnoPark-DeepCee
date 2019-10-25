@@ -20,6 +20,11 @@ TEST(processes_small, find_indices) {
     int answer = find_indices(filename, seqs_amount, sequences);
 
     EXPECT_EQ(answer, 4) << " Wrong answer";
+
+    for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
+        free(sequences[iii]);
+    }
+    free(sequences);
 }
 
 TEST(processes_medium, find_indices) {
@@ -35,6 +40,11 @@ TEST(processes_medium, find_indices) {
     int answer = find_indices(filename, seqs_amount, sequences);
 
     EXPECT_EQ(answer, 41633) << " Wrong answer";
+
+    for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
+        free(sequences[iii]);
+    }
+    free(sequences);
 }
 /*
 TEST(processes_big, find_indices) {
@@ -51,6 +61,11 @@ TEST(processes_big, find_indices) {
     int answer = find_indices(filename, seqs_amount, sequences);
 
     EXPECT_EQ(answer, 4183196) << " Wrong answer";
+
+    for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
+        free(sequences[iii]);
+    }
+    free(sequences);
 }
 */
 

@@ -20,6 +20,11 @@ TEST(threads_small, find_indices) {
     int answer = find_indices(filename, seqs_amount, sequences);
 
     EXPECT_EQ(answer, 4) << " Wrong answer";
+
+    for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
+        free(sequences[iii]);
+    }
+    free(sequences);
 }
 
 TEST(threads_medium, find_indices) {
@@ -35,7 +40,13 @@ TEST(threads_medium, find_indices) {
     int answer = find_indices(filename, seqs_amount, sequences);
 
     EXPECT_EQ(answer, 41633) << " Wrong answer";
+
+    for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
+        free(sequences[iii]);
+    }
+    free(sequences);
 }
+/*
 
 TEST(threads_big, find_indices) {
     char filename[MAX_CHARS] = "../test_files/big.txt";
@@ -50,7 +61,13 @@ TEST(threads_big, find_indices) {
     int answer = find_indices(filename, seqs_amount, sequences);
 
     EXPECT_EQ(answer, 4183196) << " Wrong answer";
+
+    for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
+        free(sequences[iii]);
+    }
+    free(sequences);
 }
+*/
 
 int main(int argc, char** argv) {
   // The following line must be executed to initialize Google Mock

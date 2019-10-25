@@ -15,6 +15,9 @@ typedef struct {
     DynArray* array;
 } thread_args;
 
+int check_file(const char* filename);
+void collect_garbage(DynArray **array_2d, size_t len_2d, thread_args *args);
+
 void* my_strstr(void* args);
 
 int find_indices(char* const filename, const size_t seqs_amount, char **sequences);

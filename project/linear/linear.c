@@ -2,15 +2,16 @@
 #include <stdlib.h>
 
 #include "DynArray.h"
+#include "linear.h"
 
 int find_indices(const char* const filename, const size_t seqs_amount, char **sequences) {
-    /// Input file name and open (or else)
-    FILE *gibberish;
-    if ( (gibberish = fopen(filename, "r")) == NULL ) {
-        fprintf(stderr, "Failed to open a file\n");
-        fprintf(stderr, "%s\n", filename);
-        return -1;
+    /// Check for file existence first
+    if ( check_file(filename) == EXIT_FAILURE ) {
+        return EXIT_FAILURE;
     }
+
+    /// Open file
+    FILE *gibberish = fopen(filename, "r");
 
     /// Dynamic array of starting indices of sequences
     DynArray **indices = (DynArray **)calloc(seqs_amount, sizeof(DynArray*));
@@ -52,16 +53,24 @@ int find_indices(const char* const filename, const size_t seqs_amount, char **se
 
     /// Freeing space
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
-        free(sequences[iii]);
         delete_DynArray(indices[iii]);
     }
-    free(sequences);
     free(indices);
 
-    if (fclose(gibberish)) {
-        fprintf(stderr, "Failed to close file\n");
-        return -1;
-    }
+    fclose(gibberish);
 
     return result;
+}
+
+int check_file(const char* filename) {
+    FILE* f;
+    if ( (f = fopen(filename, "r")) == NULL ) {
+        fprintf(stderr, "Failed to open a file\n");
+        return(EXIT_FAILURE);
+    }
+    if ( fclose(f) ) {
+        fprintf(stderr, "Failed to close a file\n");
+        return(EXIT_FAILURE);
+    }
+    return EXIT_SUCCESS;
 }

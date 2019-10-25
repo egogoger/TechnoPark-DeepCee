@@ -32,10 +32,17 @@ int find_indices(char* const filename, const size_t seqs_amount, char **sequence
             pid[jjj] = fork();
             if ( pid[jjj] == -1 ) {
                 fprintf(stderr, "Failed to fork\n");
+                collect_garbage(indices, fds, seqs_amount, pid);
                 exit(EXIT_FAILURE);
             } else if ( pid[jjj] == 0 ) {
                 /// Child process works
                 close(fds[jjj][0]);  // close pipe for reading
+                
+                /// Check for file existence first
+                if ( check_file(filename) == EXIT_FAILURE ) {
+                    collect_garbage(indices, fds, seqs_amount, pid);
+                    return EXIT_FAILURE;
+                }
                 proc_strstr(filename, sequences[iii + jjj], indices[iii + jjj]);
 
                 write(fds[jjj][1], &(indices[iii + jjj]->real_size),
@@ -45,21 +52,15 @@ int find_indices(char* const filename, const size_t seqs_amount, char **sequence
 
                 int size = indices[iii + jjj]->real_size;
                 int pack = 0;
-                int bytes = 0;
                 while ( size > SIZE_T_RANGE ) {
-                    bytes = write(fds[jjj][1],
+                    write(fds[jjj][1],
                             (indices[iii + jjj]->buffer) + (pack * sizeof(int)), SIZE_T_RANGE);
                     size -= SIZE_T_RANGE;
-                    if ( bytes != indices[iii + jjj]->real_size * sizeof(int) ) {
-                        fprintf(stderr, "WRITE ERROR for indices[%lu]", iii + jjj);
-                    }
                     pack++;
                 }
-                bytes = write(fds[jjj][1], (indices[iii + jjj]->buffer) + (pack * sizeof(int)), size);
-                if ( bytes != size ) {
-                    fprintf(stderr, "WRITE ERROR for indices[%lu]\n", iii);
-                }
+                write(fds[jjj][1], (indices[iii + jjj]->buffer) + (pack * sizeof(int)), size);
 
+                collect_garbage(indices, fds, seqs_amount, pid);  // not sure here
                 exit(EXIT_SUCCESS);
             }
         }
@@ -69,15 +70,7 @@ int find_indices(char* const filename, const size_t seqs_amount, char **sequence
             waitpid(pid[jjj], &status, 0);
             if ( WIFEXITED(status) == 0 ) {
                 fprintf(stderr, "Failed to finish a process\n");
-                for ( size_t kkk = 0; kkk < seqs_amount; kkk++ ) {
-                    free(sequences[kkk]);
-                    delete_DynArray(indices[kkk]);
-                    free(fds[kkk]);
-                }
-                free(sequences);
-                free(indices);
-                free(fds);
-                free(pid);
+                collect_garbage(indices, fds, seqs_amount, pid);
                 exit(EXIT_FAILURE);
             }
 
@@ -105,53 +98,62 @@ int find_indices(char* const filename, const size_t seqs_amount, char **sequence
     }
 
     /// Freeing space
-    for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
-        free(sequences[iii]);
-        delete_DynArray(indices[iii]);
-        free(fds[iii]);
-    }
-    free(sequences);
-    free(indices);
-    free(fds);
-    free(pid);
+    collect_garbage(indices, fds, seqs_amount, pid);
 
     return result;
 }
 
 void proc_strstr(const char* const filename, const char* sequence, DynArray *array) {
     /// Open file
-    FILE* gibber;
-    if ( (gibber = fopen(filename, "r") ) == NULL ) {
-        fprintf(stderr, "Failed to open a file\n");
-        exit(EXIT_FAILURE);
-    }
+    FILE* gibberish = fopen(filename, "r");
 
     /// Start searching
     char ch;
     int jjj = 0;
-    while ( !feof(gibber) ) {
-        if ( (ch = fgetc(gibber)) == sequence[0] ) {
+    while ( !feof(gibberish) ) {
+        if ( (ch = fgetc(gibberish)) == sequence[0] ) {
             fpos_t position;
-            fgetpos(gibber, &position);         // Remember the position to return to
+            fgetpos(gibberish, &position);         // Remember the position to return to
 
             int8_t full_match = 1;
 
             /// Go through the sequence
             for (size_t kkk = 1; (sequence[kkk] != '\0') && (full_match != 0); kkk++) {
-                if ( (ch = fgetc(gibber)) != sequence[kkk] )
+                if ( (ch = fgetc(gibberish)) != sequence[kkk] )
                     full_match = 0;
             }
 
             if (full_match == 1) {
                 add(array, jjj);
             }
-            fsetpos(gibber, &position);         // Set file pointer back
+            fsetpos(gibberish, &position);         // Set file pointer back
         }
         jjj++;
     }
 
-    if (fclose(gibber)) {
-        fprintf(stderr, "Failed to close file\n");
-        exit(EXIT_FAILURE);
+    /// Close file
+    fclose(gibberish);
+}
+
+int check_file(const char* filename) {
+    FILE* f;
+    if ( (f = fopen(filename, "r")) == NULL ) {
+        fprintf(stderr, "Failed to open a file\n");
+        return(EXIT_FAILURE);
     }
+    if ( fclose(f) ) {
+        fprintf(stderr, "Failed to close a file\n");
+        return(EXIT_FAILURE);
+    }
+    return EXIT_SUCCESS;
+}
+
+void collect_garbage(DynArray **array_2d, int **fds, size_t len_2d, pid_t *pid) {
+    for ( size_t iii = 0; iii < len_2d; iii++ ) {
+        delete_DynArray(array_2d[iii]);
+        free(fds[iii]);
+    }
+    free(array_2d);
+    free(fds);
+    free(pid);
 }
