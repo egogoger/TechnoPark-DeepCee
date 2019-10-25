@@ -71,8 +71,3 @@ target_link_libraries(test_processes.out _processes)
 # Link GoogleTest
 target_link_libraries(test_processes.out ${GTEST_LIBRARIES})
 target_link_libraries(test_processes.out pthread)
-
-######## delete zis   TODO: delete
-add_executable(test.out
-        temp/test.c
-        temp/DynArray.c)
