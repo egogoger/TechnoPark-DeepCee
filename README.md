@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/EgorBedov/TechnoPark-DeepCee.svg?branch=HW-2-DEV)](https://travis-ci.org/EgorBedov/TechnoPark-DeepCee)
+
+[![codecov](https://codecov.io/gh/EgorBedov/TechnoPark-DeepCee/branch/master/graph/badge.svg)](https://codecov.io/gh/EgorBedov/TechnoPark-DeepCee)
+
 # TechnoPark-DeepCee
 
 Домашние задания по курсу "Углубленное программирования на языках С/С++"

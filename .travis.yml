@@ -13,6 +13,7 @@ env:
 
 install:
     - sudo apt-get update
+    - sudo apt-get install cppcheck
     - sudo apt-get install valgrind
     - sudo apt-get install clang-format
     - sudo apt-get install lcov
