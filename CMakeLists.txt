@@ -1,43 +1,73 @@
 cmake_minimum_required(VERSION 3.8)
-project(subsequences)
+project(SubSequences)
+
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "--coverage")
+set(CMAKE_C_FLAGS "--coverage")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c++0x -Wall -Wextra -Werror --pedantic")
 
-include_directories(DynArray)
 
-# set(LIB_SOURCE_FILES)
+include_directories(project/DynArray)
+include_directories(project/linear)
+include_directories(project/threads)
+include_directories(project/processes)
 
-# add_library(forecast_lib STATIC ${LIB_SOURCE_FILES})
 
-# sets GTEST_INCLUDE_DIRS and GTEST_LIBRARIES
+set(LIB_DYNARRAY
+        project/DynArray/DynArray.c)
+add_library(_dynarray STATIC ${LIB_DYNARRAY})
+
+set(LIB_LINEAR
+        project/linear/linear.c
+        project/linear/test_linear.cpp
+        project/DynArray/DynArray.c)
+add_library(_linear STATIC ${LIB_LINEAR})
+
+set(LIB_THREADS
+        project/threads/threads.c
+        project/threads/test_threads.cpp
+        project/DynArray/DynArray.c)
+add_library(_threads STATIC ${LIB_THREADS})
+
+set(LIB_PROCESSES
+        project/processes/processes.c
+        project/processes/test_processes.cpp
+        project/DynArray/DynArray.c)
+add_library(_processes STATIC ${LIB_PROCESSES})
+
+
+# Set GTEST_INCLUDE_DIRS and GTEST_LIBRARIES
 find_package(GTest REQUIRED)
-# adds the gtest include directory
+# Add GoogleTest include directory
 include_directories(${GTEST_INCLUDE_DIRS})
 
-add_executable(linear
-        linear.c
-        DynArray/DynArray.h
-        DynArray/DynArray.c)
 
-add_executable(threads
-        threads.c
-        DynArray/DynArray.h
-        DynArray/DynArray.c)
+# DynArray Lib
+add_executable(test_DynArray.out project/DynArray/test_DynArray.cpp)
+target_link_libraries(test_DynArray.out _dynarray)
+# Link GoogleTest
+target_link_libraries(test_DynArray.out ${GTEST_LIBRARIES})
+target_link_libraries(test_DynArray.out pthread)
 
-add_executable(processes
-        processes.c
-        DynArray/DynArray.h
-        DynArray/DynArray.c)
+# Linear Lib
+add_executable(test_linear.out project/linear/test_linear.cpp)
+target_link_libraries(test_linear.out _linear)
+# Link GoogleTest
+target_link_libraries(test_linear.out ${GTEST_LIBRARIES})
+target_link_libraries(test_linear.out pthread)
 
-# DynArray
-add_executable(g_test_dyn_array.out
-        DynArray/GTestDynArray.cpp
-        DynArray/DynArray.c
-        DynArray/DynArray.h)
-# Link GTest
-target_link_libraries(g_test_dyn_array.out ${GTEST_LIBRARIES})
-#target_link_libraries(g_test_dyn_array.out pthread)
+# Threads Lib
+add_executable(test_threads.out project/threads/test_threads.cpp)
+target_link_libraries(test_threads.out _threads)
+# Link GoogleTest
+target_link_libraries(test_threads.out ${GTEST_LIBRARIES})
+target_link_libraries(test_threads.out pthread)
 
-add_executable(test
-        test.c)
+# Processes Lib
+add_executable(test_processes.out project/processes/test_processes.cpp)
+target_link_libraries(test_processes.out _processes)
+# Link GoogleTest
+target_link_libraries(test_processes.out ${GTEST_LIBRARIES})
+target_link_libraries(test_processes.out pthread)

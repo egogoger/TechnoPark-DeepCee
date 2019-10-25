@@ -1,49 +1,32 @@
-/*
- * Перед вами поставлена задача поиска заданных последовательностей символов
- * в загруженном в оперативную память файле размером 100 Мб.
- *
- * Составьте наивный алгоритм поиска, который сначала ищет вхождения первой последовательности,
- * затем — второй и т.д., а затем распараллельте его на несколько процессов
- * с учетом оптимизации работы с кэш-памятью.
-*/
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
 
-#include "DynArray/DynArray.h"
+#include "DynArray.h"
+#include "processes.h"
 
-#define MAX_CHARS 50
+/*int main() {
 
-int input_amount();
-void input_seqs(const size_t amount, char **array);
-void proc_strstr(const char* filename, const char* sequence, DynArray *array);
-
-
-int main() {
-
-    /// Check for file existence
-    FILE *gibber;
-    char filename[50];
-    printf("File name: ");
-    scanf("%s", filename);
-    if ( (gibber = fopen(filename, "r") ) == NULL) {
-        fprintf(stderr, "Failed to open a file\n");
+    /// Input filename
+    char* filename;
+    if ( (filename = input_filename()) == NULL) {
         return EXIT_FAILURE;
-    } else {
-        fclose(gibber);
     }
 
-    /// Creating array of sequences
-    printf("Amount of sequences: ");
+    /// Input amount of sequences
     size_t seqs_amount = input_amount();
-    char **sequences = (char **)calloc(seqs_amount, sizeof(char*));
-    for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
-        sequences[iii] = (char *)calloc(MAX_CHARS, sizeof(char));
-    }
-    input_seqs(seqs_amount, sequences);
+
+    /// Input array of words
+    char **sequences = input_seqs(seqs_amount);
+
+    /// Do the work
+    find_indices(filename, seqs_amount, sequences);
+
+    return EXIT_SUCCESS;
+}*/
+
+int find_indices(char* const filename, const size_t seqs_amount, char **sequences) {
 
     /// Dynamic array of starting indices of sequences
     DynArray **indices = (DynArray **)calloc(seqs_amount, sizeof(DynArray*));
@@ -52,7 +35,7 @@ int main() {
     }
 
     /////////////////////////////////////////////////////////////
-    ///////////////////////// MAIN AREA /////////////////////////
+    ////////////////////// MAIN AREA start //////////////////////
     /////////////////////////////////////////////////////////////
 
     int status;
@@ -62,7 +45,7 @@ int main() {
 
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
 
-        /// Open pipe for each fd
+        /// Create and open pipe for each fd
         fds[iii] = (int *)calloc(2, sizeof(int));             // fd for every child process
         pipe(fds[iii]);             // deleted check
 
@@ -70,15 +53,6 @@ int main() {
         pid[iii] = fork();
         if ( pid[iii] == -1 ) {
             fprintf(stderr, "Failed to fork\n");
-            for ( size_t kkk = 0; kkk < seqs_amount; kkk++ ) {
-                free(sequences[kkk]);
-                delete_DynArray(indices[kkk]);
-                free(fds[kkk]);
-            }
-            free(sequences);
-            free(indices);
-            free(fds);
-            free(pid);
             exit(EXIT_FAILURE);
         } else if ( pid[iii] == 0 ) {
 
@@ -91,16 +65,6 @@ int main() {
             write(fds[iii][1], &(indices[iii]->buffer_size), sizeof(indices[iii]->buffer_size));
             write(fds[iii][1], indices[iii]->buffer, indices[iii]->real_size * sizeof(int));
 
-            for ( size_t kkk = 0; kkk < seqs_amount; kkk++ ) {
-                free(sequences[kkk]);
-                delete_DynArray(indices[kkk]);
-                free(fds[kkk]);
-            }
-            free(sequences);
-            free(indices);
-            free(fds);
-            free(pid);
-
 //            printf("##### child #%lu stops #####\n", iii);
             exit(EXIT_SUCCESS);
         }
@@ -109,7 +73,8 @@ int main() {
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
 
         /// Wait till all processes are over
-        printf("waitpid returned %d\n", waitpid(pid[iii], &status, 0));
+//        printf("waitpid returned %d\n", waitpid(pid[iii], &status, 0));
+        waitpid(pid[iii], &status, 0);
         if ( WIFEXITED(status) == 0 ) {
             fprintf(stderr, "Failed to finish a process\n");
             for ( size_t kkk = 0; kkk < seqs_amount; kkk++ ) {
@@ -131,7 +96,7 @@ int main() {
         read(fds[iii][0], &(indices[iii]->real_size), sizeof(indices[iii]->real_size));
         read(fds[iii][0], &(indices[iii]->buffer_size), sizeof(indices[iii]->buffer_size));
         tempo = read(fds[iii][0], indices[iii]->buffer, indices[iii]->real_size * sizeof(int));
-        printf("read - %d\n", tempo);
+//        printf("read - %d\n", tempo);
 
     }
 
@@ -140,13 +105,9 @@ int main() {
     ////////////////////// MAIN AREA over //////////////////////
     ////////////////////////////////////////////////////////////
 
-    /// Printing out indices
+    int result = 0;
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
-        printf("%s: ", sequences[iii]);
-        for ( int jjj = 0; jjj < indices[iii]->real_size; jjj++ ) {
-            printf("%d, ", indices[iii]->buffer[jjj]);
-        }
-        puts("");
+        result += indices[iii]->real_size;
     }
 
     /// Freeing space
@@ -160,32 +121,10 @@ int main() {
     free(fds);
     free(pid);
 
-    return EXIT_SUCCESS;
+    return result;
 }
 
-int input_amount() {
-    int seqs_amount = 0;
-    char buffer[50];
-    scanf("%s", buffer);
-    seqs_amount = atoi(buffer);
-    while ( !seqs_amount ) {
-        puts("Invalid string!");
-        scanf("%s", buffer);
-        seqs_amount = atoi(buffer);
-    }
-
-    return seqs_amount;
-}
-
-void input_seqs(const size_t amount, char **array) {
-    scanf(" %s", array[0]);
-    for ( size_t iii = 1; iii < amount; iii++ ) {
-        scanf("%s", array[iii]);
-    }
-}
-
-
-void proc_strstr(const char* filename, const char* sequence, DynArray *array) {
+void proc_strstr(const char* const filename, const char* sequence, DynArray *array) {
 
     /// Open file
     FILE* gibber;
@@ -197,7 +136,7 @@ void proc_strstr(const char* filename, const char* sequence, DynArray *array) {
     /// Start searching
     char ch;
     int jjj = 0;
-    while ( !feof(gibber) && jjj < 156 ) {
+    while ( !feof(gibber) ) {
         if ( (ch = fgetc(gibber)) == sequence[0] ) {
             fpos_t position;
             fgetpos(gibber, &position);         // Remember the position to return to
@@ -222,4 +161,46 @@ void proc_strstr(const char* filename, const char* sequence, DynArray *array) {
         fprintf(stderr, "Failed to close file\n");
         exit(EXIT_FAILURE);
     }
+}
+
+
+char* input_filename() {
+    /// Input filename and check for his existence
+    FILE *gibber;
+    char* filename = (char *)calloc(MAX_CHARS, sizeof(char));
+    printf("File name: ");
+    scanf("%s", filename);
+    if ( (gibber = fopen(filename, "r") ) == NULL) {
+        fprintf(stderr, "Failed to open a file\n");
+        return NULL;
+    } else {
+        return filename;
+    }
+}
+
+int input_amount() {
+    printf("Amount of sequences: ");
+    int seqs_amount = 0;
+    char buffer[50];
+    scanf("%s", buffer);
+    seqs_amount = atoi(buffer);
+    while ( !seqs_amount ) {
+        puts("Invalid string!");
+        scanf("%s", buffer);
+        seqs_amount = atoi(buffer);
+    }
+
+    return seqs_amount;
+}
+
+char** input_seqs(const size_t seqs_amount) {
+    char **sequences = (char **)calloc(seqs_amount, sizeof(char*));
+    for ( size_t iii = 0; iii < seqs_amount; iii++ )
+        sequences[iii] = (char *)calloc(MAX_CHARS, sizeof(char));
+
+    scanf(" %s", sequences[0]);
+    for ( size_t iii = 1; iii < seqs_amount; iii++ ) {
+        scanf("%s", sequences[iii]);
+    }
+    return sequences;
 }
