@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 3.8)
 project(SubSequences)
 
 
-set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "--coverage")
 set(CMAKE_C_FLAGS "--coverage")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c++0x -Wall -Wextra -Werror --pedantic")
+set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++0x -Wall -Wextra -Werror --pedantic")
 
 
 include_directories(project/DynArray)
