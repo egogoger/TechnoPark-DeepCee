@@ -1,5 +1,5 @@
-#ifndef SUBSEQUENCES_LINEAR_H
-#define SUBSEQUENCES_LINEAR_H
+#ifndef PROJECT_LINEAR_LINEAR_H_
+#define PROJECT_LINEAR_LINEAR_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,10 +8,6 @@
 
 #define MAX_CHARS 50
 
-char* input_filename();
-int input_amount();
-char** input_seqs(const size_t amount);
-
 int find_indices(const char* const filename, const size_t seqs_amount, char **sequences);
 
-#endif //SUBSEQUENCES_LINEAR_H
+#endif  //  PROJECT_LINEAR_LINEAR_H_

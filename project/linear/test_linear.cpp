@@ -8,7 +8,6 @@ extern "C" {
 }
 
 TEST(linear_small, find_indices) {
-
     char filename[MAX_CHARS] = "../test_files/small.txt";
     size_t seqs_amount = 2;
     char **sequences = (char **)calloc(seqs_amount, sizeof(char*));
@@ -24,7 +23,6 @@ TEST(linear_small, find_indices) {
 }
 
 TEST(linear_medium, find_indices) {
-
     char filename[MAX_CHARS] = "../test_files/medium.txt";
     size_t seqs_amount = 2;
     char **sequences = (char **)calloc(seqs_amount, sizeof(char*));
@@ -39,9 +37,7 @@ TEST(linear_medium, find_indices) {
     EXPECT_EQ(answer, 41633) << " Wrong answer";
 }
 
-/// Had to comment out due to GitHub restrictions
-/*TEST(linear_big, find_indices) {
-
+TEST(linear_big, find_indices) {
     char filename[MAX_CHARS] = "../test_files/big.txt";
     size_t seqs_amount = 2;
     char **sequences = (char **)calloc(seqs_amount, sizeof(char*));
@@ -53,8 +49,8 @@ TEST(linear_medium, find_indices) {
 
     int answer = find_indices(filename, seqs_amount, sequences);
 
-    EXPECT_EQ(answer, 4191001) << " Wrong answer";
-}*/
+    EXPECT_EQ(answer, 4183196) << " Wrong answer";
+}
 
 int main(int argc, char** argv) {
   // The following line must be executed to initialize Google Mock

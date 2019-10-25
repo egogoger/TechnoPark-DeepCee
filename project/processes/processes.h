@@ -1,14 +1,12 @@
-#ifndef SUBSEQUENCES_PROCESSES_H
-#define SUBSEQUENCES_PROCESSES_H
+#ifndef PROJECT_PROCESSES_PROCESSES_H_
+#define PROJECT_PROCESSES_PROCESSES_H_
 
 #define MAX_CHARS 50
-#define MAX_PROCESSES 4
+#define MAX_PROCESSES 2
+#define SIZE_T_RANGE 65535
 
-char* input_filename();
-int input_amount();
-char** input_seqs(const size_t amount);
 void proc_strstr(const char* const filename, const char* sequence, DynArray *array);
 
 int find_indices(char* const filename, const size_t seqs_amount, char **sequences);
 
-#endif //SUBSEQUENCES_PROCESSES_H
+#endif  //  PROJECT_PROCESSES_PROCESSES_H_
