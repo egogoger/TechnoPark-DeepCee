@@ -46,11 +46,10 @@ before_script:
 script:
     - cmake .
     - make || travis_terminate 1
-    - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test_linear.out || travis_terminate 1
-    - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test_processes.out || travis_terminate 1
-    - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test_threads.out || travis_terminate 1
-    # - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test_DynArray.out || travis_terminate 1
-
+    - valgrind --tool=memcheck --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test_linear.out || travis_terminate 1
+    - valgrind --tool=memcheck --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test_threads.out || travis_terminate 1
+    - valgrind --tool=memcheck --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test_DynArray.out || travis_terminate 1
+#    - valgrind --tool=memcheck --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test_processes.out || travis_terminate 1
 after_script:
     - lcov —capture —directory ./CMakeFiles/task_library.dir/project/src —output-file coverage.info
     - bash <(curl -s https://codecov.io/bash)

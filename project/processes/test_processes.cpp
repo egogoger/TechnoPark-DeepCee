@@ -8,7 +8,7 @@ extern "C" {
 }
 
 TEST(processes_small, find_indices) {
-    char filename[MAX_CHARS] = "../test_files/small.txt";
+    char filename[MAX_CHARS] = "test_files/small.txt";
     size_t seqs_amount = 2;
     char **sequences = (char **)calloc(seqs_amount, sizeof(char*));
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
@@ -28,7 +28,7 @@ TEST(processes_small, find_indices) {
 }
 
 TEST(processes_medium, find_indices) {
-    char filename[MAX_CHARS] = "../test_files/medium.txt";
+    char filename[MAX_CHARS] = "test_files/medium.txt";
     size_t seqs_amount = 2;
     char **sequences = (char **)calloc(seqs_amount, sizeof(char*));
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
@@ -49,7 +49,7 @@ TEST(processes_medium, find_indices) {
 /*
 TEST(processes_big, find_indices) {
 
-    char filename[MAX_CHARS] = "../test_files/big.txt";
+    char filename[MAX_CHARS] = "test_files/big.txt";
     size_t seqs_amount = 2;
     char **sequences = (char **)calloc(seqs_amount, sizeof(char*));
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
