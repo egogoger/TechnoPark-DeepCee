@@ -46,19 +46,20 @@ int find_indices(const char* const filename, const size_t seqs_amount, char **se
         rewind(gibberish);     // go back in the beginning of the file
     }
 
+    /// Obtain result
     int result = 0;
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
         result += indices[iii]->real_size;
     }
 
-    /// Freeing space
+    /// Free space
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
         delete_DynArray(indices[iii]);
     }
     free(indices);
 
+    /// Close file
     fclose(gibberish);
-
     return result;
 }
 

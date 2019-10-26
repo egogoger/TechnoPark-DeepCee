@@ -12,4 +12,4 @@ int check_file(const char* filename);
 
 int find_indices(const char* const filename, const size_t seqs_amount, char **sequences);
 
-#endif  //  PROJECT_LINEAR_LINEAR_H_
+#endif  // PROJECT_LINEAR_LINEAR_H_

@@ -92,12 +92,13 @@ int find_indices(char* const filename, const size_t seqs_amount, char **sequence
     ////////////////////// MAIN AREA over //////////////////////
     ////////////////////////////////////////////////////////////
 
+    /// Obtain result
     int result = 0;
     for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
         result += indices[iii]->real_size;
     }
 
-    /// Freeing space
+    /// Free space
     collect_garbage(indices, fds, seqs_amount, pid);
 
     return result;
