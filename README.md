@@ -1,10 +1,5 @@
-[![Build Status](https://travis-ci.org/EgorBedov/TechnoPark-DeepCee.svg?branch=HW-2-DEV)](https://travis-ci.org/EgorBedov/TechnoPark-DeepCee)
-
-[![codecov](https://codecov.io/gh/EgorBedov/TechnoPark-DeepCee/branch/master/graph/badge.svg)](https://codecov.io/gh/EgorBedov/TechnoPark-DeepCee)
-
+[![Build Status](https://travis-ci.org/EgorBedov/TechnoPark-DeepCee.svg?branch=HW-2-DEV)](https://travis-ci.org/EgorBedov/TechnoPark-DeepCee) [![codecov](https://codecov.io/gh/EgorBedov/TechnoPark-DeepCee/branch/HW-2-DEV/graph/badge.svg)](https://codecov.io/gh/EgorBedov/TechnoPark-DeepCee)
 # TechnoPark-DeepCee
-
-Домашние задания по курсу "Углубленное программирования на языках С/С++"
 
 ИЗ2 посвящено приобретению навыков системной разработки на C и работе с внешними библиотеками. В качестве результата ИЗ2 ожидается:
 * грамотное разбиение проекта на файлы;
