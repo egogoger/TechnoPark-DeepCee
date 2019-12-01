@@ -1,30 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "DynArray.h"
 #include "linear.h"
 
-int find_indices(const char* const filename, const size_t seqs_amount, char **sequences) {
+int find_indices_linear(const char *const filename, const size_t seqs_amount, char **sequences) {
     /// Check for file existence first
-    if ( check_file(filename) == EXIT_FAILURE ) {
-        return EXIT_FAILURE;
-    }
+    if (access(filename, R_OK) == -1) return EXIT_FAILURE;
 
     /// Open file
     FILE *gibberish = fopen(filename, "r");
 
     /// Dynamic array of starting indices of sequences
-    DynArray **indices = (DynArray **)calloc(seqs_amount, sizeof(DynArray*));
-    for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
+    DynArray **indices = (DynArray **) calloc(seqs_amount, sizeof(DynArray *));
+    for (size_t iii = 0; iii < seqs_amount; iii++) {
         indices[iii] = new_DynArray();
     }
 
     /// Counting here
-    for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
+    for (size_t iii = 0; iii < seqs_amount; iii++) {
         char ch;
         int jjj = 0;
-        while ( !feof(gibberish) ) {
-            if ( (ch = fgetc(gibberish)) == sequences[iii][0] ) {
+        while (!feof(gibberish)) {
+            if ((ch = fgetc(gibberish)) == sequences[iii][0]) {
                 fpos_t position;
                 fgetpos(gibberish, &position);         // Remember the position to return to
 
@@ -32,7 +31,7 @@ int find_indices(const char* const filename, const size_t seqs_amount, char **se
 
                 /// Go through the sequence
                 for (size_t kkk = 1; (sequences[iii][kkk] != '\0') && (full_match != 0); kkk++) {
-                    if ( (ch = fgetc(gibberish)) != sequences[iii][kkk] )
+                    if ((ch = fgetc(gibberish)) != sequences[iii][kkk])
                         full_match = 0;
                 }
 
@@ -48,12 +47,12 @@ int find_indices(const char* const filename, const size_t seqs_amount, char **se
 
     /// Obtain result
     int result = 0;
-    for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
+    for (size_t iii = 0; iii < seqs_amount; iii++) {
         result += indices[iii]->real_size;
     }
 
     /// Free space
-    for ( size_t iii = 0; iii < seqs_amount; iii++ ) {
+    for (size_t iii = 0; iii < seqs_amount; iii++) {
         delete_DynArray(indices[iii]);
     }
     free(indices);
@@ -61,17 +60,4 @@ int find_indices(const char* const filename, const size_t seqs_amount, char **se
     /// Close file
     fclose(gibberish);
     return result;
-}
-
-int check_file(const char* filename) {
-    FILE* f;
-    if ( (f = fopen(filename, "r")) == NULL ) {
-        fprintf(stderr, "Failed to open a file\n");
-        return(EXIT_FAILURE);
-    }
-    if ( fclose(f) ) {
-        fprintf(stderr, "Failed to close a file\n");
-        return(EXIT_FAILURE);
-    }
-    return EXIT_SUCCESS;
 }

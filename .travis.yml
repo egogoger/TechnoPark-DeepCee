@@ -28,29 +28,14 @@ install:
     - cd -
 
 before_script:
-    - cd project/DynArray
-    - clang-format -i -style=Google *.h *.cpp *.c
-    - cd -
-    - cd project/linear
-    - clang-format -i -style=Google *.h *.cpp *.c
-    - cd -
-    - cd project/processes
-    - clang-format -i -style=Google *.h *.cpp *.c
-    - cd -
-    - cd project/threads
-    - clang-format -i -style=Google *.h *.cpp *.c
-    - cd -
     - cppcheck --quiet --error-exitcode=1 --force . || travis_terminate 1
     - ./linters/run.sh || travis_terminate 1
 
 script:
     - cmake .
     - make || travis_terminate 1
-    - valgrind --tool=memcheck --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test_linear.out || travis_terminate 1
-    - valgrind --tool=memcheck --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test_threads.out || travis_terminate 1
-    - valgrind --tool=memcheck --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test_DynArray.out || travis_terminate 1
-#    - valgrind --tool=memcheck --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test_processes.out || travis_terminate 1
+    - valgrind --tool=memcheck --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./main_test.out || travis_terminate 1
 after_script:
-    - lcov —capture —directory ./CMakeFiles/task_library.dir/project/src —output-file coverage.info
+    - lcov —capture —directory ./CMakeFiles/task_library.dir/lib_subseq/src —output-file coverage.info
     - bash <(curl -s https://codecov.io/bash)
     - make clean
