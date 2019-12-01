@@ -15,7 +15,7 @@ typedef struct {
     DynArray *array;
 } thread_args;
 
-void collect_garbage_threads(DynArray **array_2d, size_t len_2d, thread_args *args);
+void collect_garbage_threads(DynArray **array_2d, size_t len_2d, thread_args *args, pthread_t *threads);
 
 void *threads_strstr(void *args);
 

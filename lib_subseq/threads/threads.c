@@ -9,6 +9,11 @@
 int find_indices_threads(const char *const filename, const size_t seqs_amount, char **sequences) {
     /// Dynamic array of starting indices of sequences
     DynArray **indices = (DynArray **) calloc(seqs_amount, sizeof(DynArray *));
+    if (indices == NULL) {
+        fprintf(stderr, "Failed to allocate memory for DynArray\n");
+        collect_garbage_threads(indices, seqs_amount, NULL, NULL);
+        exit(EXIT_FAILURE);
+    }
     for (size_t iii = 0; iii < seqs_amount; iii++) {
         indices[iii] = new_DynArray();
     }
@@ -18,7 +23,13 @@ int find_indices_threads(const char *const filename, const size_t seqs_amount, c
     /////////////////////////////////////////////////////////////
 
     thread_args *args = (thread_args *) calloc(MAX_THREADS, sizeof(thread_args));
-    pthread_t threads[MAX_THREADS];                 // Array of threads
+    pthread_t *threads = (pthread_t *) calloc(MAX_THREADS, sizeof(pthread_t));
+    if (threads == NULL || args == NULL) {
+        fprintf(stderr, "Failed to allocate memory for threads\n");
+        collect_garbage_threads(indices, seqs_amount, args, threads);
+        exit(EXIT_FAILURE);
+    }
+
     for (size_t iii = 0; iii < seqs_amount; iii += MAX_THREADS) {
         /// This for-loop merely limits the amount of simultaneously running threads
         for (size_t jjj = 0; jjj < MAX_THREADS && jjj + iii < seqs_amount; jjj++) {
@@ -28,12 +39,16 @@ int find_indices_threads(const char *const filename, const size_t seqs_amount, c
             args[jjj].array = indices[iii + jjj];
 
             /// Check for file existence first
-            if (access(filename, R_OK) == -1) return EXIT_FAILURE;
+            if (access(filename, R_OK) == -1) {
+                fprintf(stderr, "Failed to open a file\n");
+                collect_garbage_threads(indices, seqs_amount, args, threads);
+                return EXIT_FAILURE;
+            }
 
             /// Create a thread and give it a job
             if (pthread_create(&threads[jjj], NULL, &threads_strstr, (void *) &args[jjj]) != 0) {
                 fprintf(stderr, "Failed to create thread # %lu\n", iii + jjj);
-                collect_garbage_threads(indices, seqs_amount, args);
+                collect_garbage_threads(indices, seqs_amount, args, threads);
                 return EXIT_FAILURE;
             }
         }
@@ -41,7 +56,7 @@ int find_indices_threads(const char *const filename, const size_t seqs_amount, c
         for (size_t jjj = 0; jjj < MAX_THREADS && jjj + iii < seqs_amount; jjj++) {
             if (pthread_join(threads[jjj], NULL) != 0) {
                 fprintf(stderr, "Cannot join thread # %lu\n", iii + jjj);
-                collect_garbage_threads(indices, seqs_amount, args);
+                collect_garbage_threads(indices, seqs_amount, args, threads);
                 return EXIT_FAILURE;
             }
         }
@@ -58,7 +73,7 @@ int find_indices_threads(const char *const filename, const size_t seqs_amount, c
     }
 
     /// Freeing space
-    collect_garbage_threads(indices, seqs_amount, args);
+    collect_garbage_threads(indices, seqs_amount, args, threads);
 
     return result;
 }
@@ -100,10 +115,11 @@ void *threads_strstr(void *args) {
     return NULL;
 }
 
-void collect_garbage_threads(DynArray **array_2d, size_t len_2d, thread_args *args) {
+void collect_garbage_threads(DynArray **array_2d, size_t len_2d, thread_args *args, pthread_t *threads) {
     for (size_t iii = 0; iii < len_2d; iii++) {
         delete_DynArray(array_2d[iii]);
     }
     free(array_2d);
     free(args);
+    free(threads);
 }

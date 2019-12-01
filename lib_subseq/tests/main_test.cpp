@@ -4,9 +4,9 @@
 
 #define SUBSEQ_LIB "./lib_subseq.so"
 
-#define TEST_SMALL "test_files/small.txt"
-#define TEST_MEDIUM "test_files/medium.txt"
-#define TEST_BIG "test_files/big.txt"
+#define TEST_SMALL "lib_subseq/tests/test_files/small.txt"
+#define TEST_MEDIUM "lib_subseq/tests/test_files/medium.txt"
+#define TEST_BIG "lib_subseq/tests/test_files/big.txt"
 
 #define SMALL_CORRECT_ANSWER 4
 #define MEDIUM_CORRECT_ANSWER 41633

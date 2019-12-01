@@ -47,6 +47,8 @@ int find_indices_proc(char *const filename, const size_t seqs_amount, char **seq
             /// Create child process for that pipe
             pid[jjj] = fork();
             if (pid[jjj] == -1) {
+                close(fds[jjj][0]);
+                close(fds[jjj][1]);
                 fprintf(stderr, "Failed to fork\n");
                 collect_garbage_proc(indices, fds, seqs_amount, pid);
                 exit(EXIT_FAILURE);
@@ -55,12 +57,18 @@ int find_indices_proc(char *const filename, const size_t seqs_amount, char **seq
                 close(fds[jjj][0]);  // close pipe for reading
 
                 /// Check for file existence first
-                if (access(filename, R_OK) == -1) return EXIT_FAILURE; // TODO -1
+                if (access(filename, R_OK) == -1) {
+                    fprintf(stderr, "Failed to open a file\n");
+                    close(fds[jjj][1]);
+                    collect_garbage_proc(indices, fds, seqs_amount, pid);
+                    return EXIT_FAILURE;
+                }
 
                 proc_strstr(filename, sequences[iii + jjj], indices[iii + jjj]);
 
                 write(fds[jjj][1], &(indices[iii + jjj]->real_size),
                       sizeof(indices[iii + jjj]->real_size));
+
                 collect_garbage_proc(indices, fds, seqs_amount, pid);
                 exit(EXIT_SUCCESS);
             }
@@ -71,6 +79,7 @@ int find_indices_proc(char *const filename, const size_t seqs_amount, char **seq
             waitpid(pid[jjj], &status, 0);
             if (WIFEXITED(status) == 0) {
                 fprintf(stderr, "Failed to finish a process\n");
+                close(fds[jjj][1]);
                 collect_garbage_proc(indices, fds, seqs_amount, pid);
                 exit(EXIT_FAILURE);
             }

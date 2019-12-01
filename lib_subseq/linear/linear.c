@@ -14,6 +14,13 @@ int find_indices_linear(const char *const filename, const size_t seqs_amount, ch
 
     /// Dynamic array of starting indices of sequences
     DynArray **indices = (DynArray **) calloc(seqs_amount, sizeof(DynArray *));
+    if ( indices == NULL ) {
+        for (size_t iii = 0; iii < seqs_amount; iii++) {
+            delete_DynArray(indices[iii]);
+        }
+        free(indices);
+        return EXIT_FAILURE;
+    }
     for (size_t iii = 0; iii < seqs_amount; iii++) {
         indices[iii] = new_DynArray();
     }

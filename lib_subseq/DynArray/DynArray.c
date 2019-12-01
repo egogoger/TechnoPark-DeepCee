@@ -21,7 +21,7 @@ DynArray *new_DynArray() {
     return dyn_array;
 }
 
-int delete_DynArray(DynArray *dyn_array) { // malloc_fail
+int delete_DynArray(DynArray *dyn_array) {
     if (!dyn_array)
         return EXIT_FAILURE;
     free(dyn_array->buffer);
