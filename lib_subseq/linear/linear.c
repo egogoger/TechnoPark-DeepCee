@@ -19,6 +19,7 @@ int find_indices_linear(const char *const filename, const size_t seqs_amount, ch
             delete_DynArray(indices[iii]);
         }
         free(indices);
+        fclose(gibberish);
         return EXIT_FAILURE;
     }
     for (size_t iii = 0; iii < seqs_amount; iii++) {
