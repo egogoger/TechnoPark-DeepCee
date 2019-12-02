@@ -18,6 +18,13 @@ install:
     - sudo apt-get install cmake
     - sudo apt-get install cppcheck
     - sudo apt-get install clang-format
+    # Google tests
+    - sudo apt-get install libgtest-dev
+    - cd /usr/src/gtest
+    - sudo cmake .
+    - sudo make
+    - sudo cp *.a /usr/lib
+    - cd -
 
 before_script:
     - cppcheck --quiet --error-exitcode=1 --force . || travis_terminate 1
@@ -25,7 +32,7 @@ before_script:
 
 script:
     - cmake .
-    - make
+    - make || travis_terminate 1
     - valgrind --tool=memcheck --leak-check=full --leak-resolution=med  --track-origins=yes ./tests.out
 
 after_script:
