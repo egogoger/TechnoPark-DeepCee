@@ -8,10 +8,9 @@ CMakeCache.txt
 CPackConfig.cmake
 CPackSourceConfig.cmake
 cmake_uninstall.cmake
-CTestTestfile.cmake
-
 # Idea
-.idea/
+.idea
+.DS_Store
 
 #################
 # Default for C #
