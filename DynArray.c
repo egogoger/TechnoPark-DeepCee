@@ -1,4 +1,3 @@
-#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,8 +5,7 @@
 #include "DynArray.h"
 #include "DayWeather.h"
 
-DynArray* new_DynArray()
-{
+DynArray* new_DynArray() {
     DynArray* dyn_array = calloc(1, sizeof(DynArray));
     if ( !dyn_array )
         return NULL;
@@ -32,11 +30,11 @@ int delete_DynArray(DynArray *dyn_array) {  // malloc_fail
     return EXIT_SUCCESS;
 }
 
-size_t IsEmpty(DynArray *dyn_array) {
+size_t is_empty(const DynArray *dyn_array) {
     return (dyn_array->real_size != 0) ? 1 : 0;
 }
 
-void Expand(DynArray *dyn_array) {
+void expand(DynArray *dyn_array) {
     size_t bigger_buffer_size = dyn_array->buffer_size * 2;
 
     DayWeather *bigger_buffer;
@@ -54,17 +52,19 @@ void Expand(DynArray *dyn_array) {
     dyn_array->buffer_size = bigger_buffer_size;
 }
 
-void Add(DynArray *dyn_array, DayWeather* day) {
+void add(DynArray *dyn_array, const DayWeather* day) {
     if (dyn_array->real_size == dyn_array->buffer_size)
-        Expand(dyn_array);
-    assert(dyn_array->real_size < dyn_array->buffer_size && dyn_array->buffer != 0);
+        expand(dyn_array);
+    if ( !(dyn_array->real_size < dyn_array->buffer_size && dyn_array->buffer != 0) ) {
+        printf("Dynamic array failed\n");
+        return;
+    }
     dyn_array->buffer[dyn_array->real_size].temperature = day->temperature;
     dyn_array->buffer[dyn_array->real_size].precipitation = day->precipitation;
     dyn_array->buffer[dyn_array->real_size++].wind_speed = day->wind_speed;
 }
 
 // works provided user checked emptiness
-DayWeather Pop(DynArray *dyn_array) {
-    assert(dyn_array->buffer != 0);
+DayWeather pop(DynArray *dyn_array) {
     return dyn_array->buffer[--dyn_array->real_size];
 }

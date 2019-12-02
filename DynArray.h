@@ -10,12 +10,12 @@ typedef struct {
 } DynArray;
 
 DynArray*   new_DynArray    ();
-size_t      IsEmpty         (DynArray *dyn_array);
-void        Expand          (DynArray *dyn_array);
-void        Add             (DynArray *dyn_array, DayWeather* day);
-DayWeather  Pop             (DynArray *dyn_array);
+size_t      is_empty         (const DynArray *dyn_array);
+void        expand          (DynArray *dyn_array);
+void        add             (DynArray *dyn_array, const DayWeather* day);
+DayWeather  pop             (DynArray *dyn_array);
 int         delete_DynArray (DynArray *dyn_array);
 
-#endif //IS1_DYNARRAY_H
+#endif // IS1_DYNARRAY_H
 
 #define DAYS_IN_WEEK 7

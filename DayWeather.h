@@ -13,13 +13,11 @@ typedef enum precipitations {
 } precipitations;
 
 typedef struct {
-    double temperature;
+    float temperature;
     precipitations precipitation;
-    double wind_speed;
+    float wind_speed;
 } DayWeather;
 
-char* print_weather_forecast(DayWeather today);
-
-#endif //IS1_DAYWEATHER_H
+#endif // IS1_DAYWEATHER_H
 
 #define MAX_LEN 100

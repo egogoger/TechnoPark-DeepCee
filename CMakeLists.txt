@@ -1,29 +1,29 @@
 cmake_minimum_required(VERSION 3.8)
-project(tests.c)
+project(HW1)
 
-set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "--coverage")
+set(CMAKE_C_FLAGS "--coverage")
+set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++0x -Wall -Wextra -Werror -Wpedantic")
 
 set(LIB_SOURCE_FILES
+        DayWeather.h
         DynArray.c
-        DayWeather.c)
+        DynArray.h
+        stats.c
+        stats.h)
 
 add_library(forecast_lib STATIC ${LIB_SOURCE_FILES})
 
-add_executable(tests.out
-        tests.c
-        DynArray.c
-        DynArray.h
-        DayWeather.c
-        DayWeather.h)
+# Set GTEST_INCLUDE_DIRS and GTEST_LIBRARIES
+find_package(GTest REQUIRED)
+# Add GoogleTest include directory
+include_directories(${GTEST_INCLUDE_DIRS})
 
+# Tests
+add_executable(tests.out tests.cpp)
 target_link_libraries(tests.out forecast_lib)
-
-# My own tests
-enable_testing()
-
-add_test(NAME MainTest
-        COMMAND tests.out)
-
-set_tests_properties(MainTest PROPERTIES
-        PASS_REGULAR_EXPRESSION "OK")
+# Linking google tests
+target_link_libraries(tests.out ${GTEST_LIBRARIES})
+target_link_libraries(tests.out pthread)

@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/EgorBedov/TechnoPark-DeepCee.svg?branch=tests)](https://travis-ci.org/EgorBedov/TechnoPark-DeepCee)
+[![Build Status](https://travis-ci.org/EgorBedov/TechnoPark-DeepCee.svg?branch=tests)](https://travis-ci.org/EgorBedov/TechnoPark-DeepCee) [![codecov](https://codecov.io/gh/EgorBedov/TechnoPark-DeepCee/branch/HW-2-DEV/graph/badge.svg)](https://codecov.io/gh/EgorBedov/TechnoPark-DeepCee)
 
 # TechnoPark-DeepCee
 

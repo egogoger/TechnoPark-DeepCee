@@ -7,17 +7,27 @@ os: linux
 
 compiler: gcc
 
+env:
+  global:
+    - CODECOV_TOKEN="64172ad9-b384-4379-a529-28823530357f"
+
 install:
     - sudo apt-get update
     - sudo apt-get install valgrind
     - sudo apt-get install libstdc++6
     - sudo apt-get install cmake
     - sudo apt-get install cppcheck
+    - sudo apt-get install clang-format
+
+before_script:
+    - cppcheck --quiet --error-exitcode=1 --force . || travis_terminate 1
+    - ./linters/run.sh || travis_terminate 1
 
 script:
     - cmake .
     - make
-    # valgrind
     - valgrind --tool=memcheck --leak-check=full --leak-resolution=med  --track-origins=yes ./tests.out
-    # cppcheck
-    - cppcheck --quiet --error-exitcode=1 .
+
+after_script:
+    - bash <(curl -s https://codecov.io/bash)
+    - make clean
