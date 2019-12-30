@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "DynArray.h"
+#include "dyn_array.h"
 
 #define MAX_CHARS 50
 

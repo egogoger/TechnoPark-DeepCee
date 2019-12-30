@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "DynArray.h"
+#include "dyn_array.h"
 #include "linear.h"
 
 int find_indices_linear(const char *const filename, const size_t seqs_amount, char **sequences) {
@@ -13,17 +13,17 @@ int find_indices_linear(const char *const filename, const size_t seqs_amount, ch
     FILE *gibberish = fopen(filename, "r");
 
     /// Dynamic array of starting indices of sequences
-    DynArray **indices = (DynArray **) calloc(seqs_amount, sizeof(DynArray *));
+    dyn_array **indices = (dyn_array **) calloc(seqs_amount, sizeof(dyn_array *));
     if ( indices == NULL ) {
         for (size_t iii = 0; iii < seqs_amount; iii++) {
-            delete_DynArray(indices[iii]);
+            delete_dyn_array(indices[iii]);
         }
         free(indices);
         fclose(gibberish);
         return EXIT_FAILURE;
     }
     for (size_t iii = 0; iii < seqs_amount; iii++) {
-        indices[iii] = new_DynArray();
+        indices[iii] = new_dyn_array();
     }
 
     /// Counting here
@@ -61,7 +61,7 @@ int find_indices_linear(const char *const filename, const size_t seqs_amount, ch
 
     /// Free space
     for (size_t iii = 0; iii < seqs_amount; iii++) {
-        delete_DynArray(indices[iii]);
+        delete_dyn_array(indices[iii]);
     }
     free(indices);
 

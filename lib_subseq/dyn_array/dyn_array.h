@@ -5,18 +5,18 @@ typedef struct {
     int *buffer;      // Содержимое
     int buffer_size;  // размер буфера
     int real_size;    // Он же хэд
-} DynArray;
+} dyn_array;
 
-DynArray *new_DynArray();
+dyn_array *new_dyn_array();
 
-int is_empty(DynArray *dyn_array);
+int is_empty(dyn_array *dyn_array);
 
-void grow(DynArray *dyn_array);
+void grow(dyn_array *dyn_array);
 
-void add(DynArray *dyn_array, int day);
+void add(dyn_array *dyn_array, int day);
 
-int pop(DynArray *dyn_array);
+int pop(dyn_array *dyn_array);
 
-int delete_DynArray(DynArray *dyn_array);
+int delete_dyn_array(dyn_array *dyn_array);
 
 #endif  // PROJECT_DYNARRAY_DYNARRAY_H_

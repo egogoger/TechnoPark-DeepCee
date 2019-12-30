@@ -3,19 +3,19 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include "DynArray.h"
+#include "dyn_array.h"
 #include "processes.h"
 
 int find_indices_proc(char *const filename, const size_t seqs_amount, char **sequences) {
     /// Dynamic array of starting indices of sequences
-    DynArray **indices = (DynArray **) calloc(seqs_amount, sizeof(DynArray *));
+    dyn_array **indices = (dyn_array **) calloc(seqs_amount, sizeof(dyn_array *));
     if (indices == NULL) {
-        fprintf(stderr, "Failed to allocate memory for DynArray\n");
+        fprintf(stderr, "Failed to allocate memory for dyn_array\n");
         collect_garbage_proc(indices, NULL, seqs_amount, NULL);
         exit(EXIT_FAILURE);
     }
     for (size_t iii = 0; iii < seqs_amount; iii++) {
-        indices[iii] = new_DynArray();
+        indices[iii] = new_dyn_array();
     }
 
     /////////////////////////////////////////////////////////////
@@ -84,7 +84,7 @@ int find_indices_proc(char *const filename, const size_t seqs_amount, char **seq
                 exit(EXIT_FAILURE);
             }
 
-            /// Read parts of DynArray
+            /// Read parts of dyn_array
             close(fds[jjj][1]);
             read(fds[jjj][0], &(indices[iii + jjj]->real_size), sizeof(indices[iii + jjj]->real_size));
         }
@@ -107,7 +107,7 @@ int find_indices_proc(char *const filename, const size_t seqs_amount, char **seq
     return result;
 }
 
-void proc_strstr(const char *const filename, const char *sequence, DynArray *array) {
+void proc_strstr(const char *const filename, const char *sequence, dyn_array *array) {
     /// Open file
     FILE *gibberish = fopen(filename, "r");
 
@@ -139,9 +139,9 @@ void proc_strstr(const char *const filename, const char *sequence, DynArray *arr
     fclose(gibberish);
 }
 
-void collect_garbage_proc(DynArray **array_2d, int **fds, size_t len_2d, pid_t *pid) {
+void collect_garbage_proc(dyn_array **array_2d, int **fds, size_t len_2d, pid_t *pid) {
     for (size_t iii = 0; iii < len_2d; iii++) {
-        delete_DynArray(array_2d[iii]);
+        delete_dyn_array(array_2d[iii]);
         free(fds[iii]);
     }
     free(array_2d);

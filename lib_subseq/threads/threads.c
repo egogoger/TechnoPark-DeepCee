@@ -3,19 +3,19 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "DynArray.h"
+#include "dyn_array.h"
 #include "threads.h"
 
 int find_indices_threads(const char *const filename, const size_t seqs_amount, char **sequences) {
     /// Dynamic array of starting indices of sequences
-    DynArray **indices = (DynArray **) calloc(seqs_amount, sizeof(DynArray *));
+    dyn_array **indices = (dyn_array **) calloc(seqs_amount, sizeof(dyn_array *));
     if (indices == NULL) {
-        fprintf(stderr, "Failed to allocate memory for DynArray\n");
+        fprintf(stderr, "Failed to allocate memory for dyn_array\n");
         collect_garbage_threads(indices, seqs_amount, NULL, NULL);
         exit(EXIT_FAILURE);
     }
     for (size_t iii = 0; iii < seqs_amount; iii++) {
-        indices[iii] = new_DynArray();
+        indices[iii] = new_dyn_array();
     }
 
     /////////////////////////////////////////////////////////////
@@ -115,9 +115,9 @@ void *threads_strstr(void *args) {
     return NULL;
 }
 
-void collect_garbage_threads(DynArray **array_2d, size_t len_2d, thread_args *args, pthread_t *threads) {
+void collect_garbage_threads(dyn_array **array_2d, size_t len_2d, thread_args *args, pthread_t *threads) {
     for (size_t iii = 0; iii < len_2d; iii++) {
-        delete_DynArray(array_2d[iii]);
+        delete_dyn_array(array_2d[iii]);
     }
     free(array_2d);
     free(args);

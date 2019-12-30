@@ -9,14 +9,14 @@ set(CMAKE_C_FLAGS "--coverage")
 set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++0x -Wall -Wextra -Werror -Wpedantic")
 
 
-include_directories(lib_subseq/DynArray)
+include_directories(lib_subseq/dyn_array)
 include_directories(lib_subseq/linear)
 include_directories(lib_subseq/threads)
 include_directories(lib_subseq/processes)
 
 
 set(LIB_SUBSEQ
-        lib_subseq/DynArray/DynArray.c
+        lib_subseq/dyn_array/dyn_array.c
         lib_subseq/linear/linear.c
         lib_subseq/processes/processes.c
         lib_subseq/threads/threads.c)

@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "DynArray.h"
+#include "dyn_array.h"
 
 #define MAX_CHARS 50
 #define MAX_THREADS sysconf(_SC_NPROCESSORS_ONLN)
@@ -12,10 +12,10 @@
 typedef struct {
     char *filename;
     char *sequence;
-    DynArray *array;
+    dyn_array *array;
 } thread_args;
 
-void collect_garbage_threads(DynArray **array_2d, size_t len_2d, thread_args *args, pthread_t *threads);
+void collect_garbage_threads(dyn_array **array_2d, size_t len_2d, thread_args *args, pthread_t *threads);
 
 void *threads_strstr(void *args);
 
