@@ -7,6 +7,8 @@
 #include "processes.h"
 
 int find_indices_proc(char *const filename, const size_t seqs_amount, char **sequences) {
+    if (!filename || !sequences)
+        return EXIT_FAILURE;
     /// Dynamic array of starting indices of sequences
     dyn_array **indices = (dyn_array **) calloc(seqs_amount, sizeof(dyn_array *));
     if (indices == NULL) {
@@ -108,6 +110,8 @@ int find_indices_proc(char *const filename, const size_t seqs_amount, char **seq
 }
 
 void proc_strstr(const char *const filename, const char *sequence, dyn_array *array) {
+    if (!filename || !sequence || !array)
+        return;
     /// Open file
     FILE *gibberish = fopen(filename, "r");
 

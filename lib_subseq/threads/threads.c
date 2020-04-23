@@ -7,6 +7,8 @@
 #include "threads.h"
 
 int find_indices_threads(const char *const filename, const size_t seqs_amount, char **sequences) {
+    if (!filename || !sequences)
+        return EXIT_FAILURE;
     /// Dynamic array of starting indices of sequences
     dyn_array **indices = (dyn_array **) calloc(seqs_amount, sizeof(dyn_array *));
     if (indices == NULL) {

@@ -30,10 +30,14 @@ int delete_dyn_array(dyn_array *dyn_array) {
 }
 
 int is_empty(dyn_array *dyn_array) {
+    if (!dyn_array)
+        return EXIT_FAILURE;
     return (dyn_array->real_size == 0) ? 1 : 0;
 }
 
 void grow(dyn_array *dyn_array) {
+    if (!dyn_array)
+        return;
     size_t bigger_buffer_size = dyn_array->buffer_size * 2;
 
     int *bigger_buffer;
@@ -51,6 +55,8 @@ void grow(dyn_array *dyn_array) {
 }
 
 void add(dyn_array *dyn_array, int number) {
+    if (!dyn_array)
+        return;
     if (dyn_array->real_size == dyn_array->buffer_size)
         grow(dyn_array);
     //    assert(dyn_array->real_size < dyn_array->buffer_size &&
@@ -60,6 +66,7 @@ void add(dyn_array *dyn_array, int number) {
 
 // works provided user checked emptiness
 int pop(dyn_array *dyn_array) {
-    //    assert(dyn_array->buffer != 0);
+    if (!dyn_array)
+        return EXIT_FAILURE;
     return dyn_array->buffer[--dyn_array->real_size];
 }

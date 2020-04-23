@@ -6,6 +6,8 @@
 #include "linear.h"
 
 int find_indices_linear(const char *const filename, const size_t seqs_amount, char **sequences) {
+    if (!filename || !sequences)
+        return EXIT_FAILURE;
     /// Check for file existence first
     if (access(filename, R_OK) == -1) return EXIT_FAILURE;
 
